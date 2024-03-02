@@ -30,10 +30,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         StartCoroutine(InitializeYooAsset());
-
-
-
-
     }
     /// <summary>
     /// 游戏入口Start脚本
@@ -41,10 +37,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //启动游戏显示默认Main UI
-
-
-
-
     }
     private void Update()
     {
