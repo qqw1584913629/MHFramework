@@ -73,6 +73,7 @@ public class UIFindHelper
         strBuilder.AppendLine($"\t\tif (gameObject.GetComponent<{strDlgName}Component>() == null)");
         strBuilder.AppendLine($"\t\t\tself = gameObject.AddComponent<{strDlgName}Component>();");
         strBuilder.AppendLine($"\t\tself.uiTransform = transform;");
+        strBuilder.AppendLine($"\t\twindowType = UIWindowType.Normal;");
         strBuilder.AppendLine("\t}");
         strBuilder.AppendLine($"\tprivate void Start()");
         strBuilder.AppendLine("\t{\n\t\t");

@@ -1,22 +1,19 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
-public class DlgBackGroundSystem : BasePanel
+public class DlgLoginSystem : BasePanel
 {
-	private DlgBackGroundComponent self;
+	private DlgLoginComponent self;
 	private void Awake()
 	{
-		if (gameObject.GetComponent<DlgBackGroundComponent>() == null)
-			self = gameObject.AddComponent<DlgBackGroundComponent>();
+		if (gameObject.GetComponent<DlgLoginComponent>() == null)
+			self = gameObject.AddComponent<DlgLoginComponent>();
 		self.uiTransform = transform;
 		windowType = UIWindowType.Fixed;
 	}
 	private void Start()
 	{
-		self.MLoginButton.onClick.AddListener(() =>
-		{
-			UIManager.Instance.ShowWindow(WindowID.WindowID_Login);
-		});
+		
 	}
 	public override void ShowWindow(string path)
 	{

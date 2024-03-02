@@ -6,6 +6,7 @@ public class BasePanel : MonoBehaviour
 {
     protected bool isRemove = false;
     protected string path;
+    public UIWindowType windowType = UIWindowType.Normal; 
 
     public virtual void ShowWindow(string path)
     {

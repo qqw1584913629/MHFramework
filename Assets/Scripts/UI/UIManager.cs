@@ -3,7 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-
+public enum UIWindowType
+{
+    Normal,    // 普通主界面
+    Fixed,     // 固定窗口
+    PopUp,     // 弹出窗口
+    Other,      //其他窗口
+}
 public class UIManager
 {
     private static UIManager _instance;
@@ -12,8 +18,14 @@ public class UIManager
     private Dictionary<string, string> windowConfigDict = new Dictionary<string, string>();
     private Dictionary<string, BasePanel> openWindowDict = new Dictionary<string, BasePanel>();
     private Dictionary<string, GameObject> prefabWindowDict = new Dictionary<string, GameObject>();
-
     private Stack<BasePanel> openWindowStack = new Stack<BasePanel>();
+    
+    
+    
+    public Transform NormalRoot{ get; set; }
+    public Transform FixedRoot{ get; set; }
+    public Transform PopUpRoot{ get; set; }
+    public Transform OtherRoot{ get; set; }
 
     
     /// <summary>
@@ -51,6 +63,10 @@ public class UIManager
     private UIManager()
     {
         InitWindowPathConfig();
+        NormalRoot = GameObject.Find("Global/Root/Normal").transform;
+        FixedRoot = GameObject.Find("Global/Root/Fixed").transform;
+        PopUpRoot = GameObject.Find("Global/Root/PopUp").transform;
+        OtherRoot = GameObject.Find("Global/Root/Other").transform;
     }
     private void InitWindowPathConfig()
     {
@@ -118,6 +134,7 @@ public class UIManager
                     
 
             basePanel = panelObject.GetComponent<BasePanel>();
+            SetRoot(basePanel, GetTargetRoot(basePanel.windowType));
             openWindowDict.Add(path, basePanel);
                     
             //查看上一个最新打开的UI的
@@ -245,4 +262,22 @@ public class UIManager
         }
         return true;
     }
+   public Transform GetTargetRoot(UIWindowType type)
+   {
+       if (type == UIWindowType.Normal)
+           return NormalRoot;
+       else if (type == UIWindowType.Fixed)
+           return FixedRoot;
+       else if (type == UIWindowType.PopUp)
+           return PopUpRoot;
+       else if (type == UIWindowType.Other)
+           return OtherRoot;
+       Debug.LogError("uiroot type is error: " + type.ToString());
+       return null;
+   }
+   public void SetRoot(BasePanel obj, Transform rootTransform)
+   {
+       obj.transform.SetParent(rootTransform);
+       obj.transform.localScale = Vector3.one;
+   }
 }
