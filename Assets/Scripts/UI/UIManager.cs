@@ -141,7 +141,7 @@ public class UIManager
             if (openWindowStack.Count > 0)
             {
                 var panel = openWindowStack.Peek();
-                panel.GetComponent<CanvasGroup>().interactable = false;
+                // panel.GetComponent<CanvasGroup>().interactable = false;
             }
             openWindowStack.Push(basePanel);
             basePanel.ShowWindow(path);
@@ -157,7 +157,7 @@ public class UIManager
         if (openWindowStack.Count > 0)
         {
             var panel = openWindowStack.Peek();
-            panel.GetComponent<CanvasGroup>().interactable = false;
+            // panel.GetComponent<CanvasGroup>().interactable = false;
         }
         openWindowStack.Push(basePanel);
         basePanel.ShowWindow(path);
@@ -195,7 +195,7 @@ public class UIManager
             if (openWindowStack.Count > 0)
             {
                 var panel = openWindowStack.Peek();
-                panel.GetComponent<CanvasGroup>().interactable = false;
+                // panel.GetComponent<CanvasGroup>().interactable = false;
             }
             openWindowStack.Push(basePanel);
             basePanel.ShowWindow(path);
@@ -212,7 +212,7 @@ public class UIManager
         if (openWindowStack.Count > 0)
         {
             var panel = openWindowStack.Peek();
-            panel.GetComponent<CanvasGroup>().interactable = false;
+            // panel.GetComponent<CanvasGroup>().interactable = false;
         }
         openWindowStack.Push(basePanel);
         basePanel.ShowWindow(path);
@@ -236,7 +236,7 @@ public class UIManager
         if (openWindowStack.Count > 0)
         {
             var panel = openWindowStack.Peek();
-            panel.GetComponent<CanvasGroup>().interactable = true;
+            // panel.GetComponent<CanvasGroup>().interactable = true;
         }
         return true;
     }
@@ -258,7 +258,7 @@ public class UIManager
         if (openWindowStack.Count > 0)
         {
             var panel = openWindowStack.Peek();
-            panel.GetComponent<CanvasGroup>().interactable = true;
+            // panel.GetComponent<CanvasGroup>().interactable = true;
         }
         return true;
     }
