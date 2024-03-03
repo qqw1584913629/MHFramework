@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using YooAsset;
 using Object = System.Object;
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 游戏入口Awake脚本
     /// </summary>
-    private void Awake()
+    private async UniTask Awake()
     {
         if (instance == null)
             instance = this;
@@ -28,8 +29,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
-        
-        StartCoroutine(InitializeYooAsset());
+
+        await InitializeYooAsset();
     }
     /// <summary>
     /// 游戏入口Start脚本
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         // UIManager.Instance.GetStackCount();
     }
-    IEnumerator InitializeYooAsset()
+    private async UniTask InitializeYooAsset()
     {
         // 初始化资源系统
         YooAssets.Initialize();
@@ -57,12 +58,12 @@ public class GameManager : MonoBehaviour
         {
             var initParameters = new EditorSimulateModeParameters();
             initParameters.SimulateManifestFilePath  = EditorSimulateModeHelper.SimulateBuild("DefaultPackage");
-            yield return package.InitializeAsync(initParameters);
+            await package.InitializeAsync(initParameters);
         }
         else if (PlayMode == EPlayMode.OfflinePlayMode)
         {
             var initParameters = new OfflinePlayModeParameters();
-            yield return package.InitializeAsync(initParameters);
+            await package.InitializeAsync(initParameters);
         }
         else if (PlayMode == EPlayMode.HostPlayMode)
         {
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
             // initParameters.DecryptionServices = new FileOffsetDecryption();
             // initParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
             var initOperation = package.InitializeAsync(initParameters);
-            yield return initOperation;
+            await initOperation;
     
             if(initOperation.Status == EOperationStatus.Succeed)
             {
@@ -90,7 +91,7 @@ public class GameManager : MonoBehaviour
         
         var defaultPackage = YooAssets.GetPackage("DefaultPackage");
         var operation = defaultPackage.UpdatePackageVersionAsync();
-        yield return operation;
+        await operation;
 
         if (operation.Status == EOperationStatus.Succeed)
         {
@@ -108,7 +109,7 @@ public class GameManager : MonoBehaviour
         // 也可以通过operation.SavePackageVersion()方法保存。
         bool savePackageVersion = true;
         var operation1 = defaultPackage.UpdatePackageManifestAsync(operation.PackageVersion, savePackageVersion);
-        yield return operation1;
+        await operation1;
 
         if (operation1.Status == EOperationStatus.Succeed)
         {
@@ -118,12 +119,11 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError($"更新失败{operation1.Error}");
         }
-
-        yield return Download();
+        await Download();
         CreatePlayerData();
 
     }
-    IEnumerator Download()
+    async UniTask Download()
     {
         int downloadingMaxNum = 10;
         int failedTryAgain = 3;
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
         //没有需要下载的资源
         if (downloader.TotalDownloadCount == 0)
         {        
-            yield break;
+            return;
         }
 
         //需要下载的文件总数和总大小
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
 
         //开启下载
         downloader.BeginDownload();
-        yield return downloader;
+        await downloader;
 
         //检测下载结果
         if (downloader.Status == EOperationStatus.Succeed)
