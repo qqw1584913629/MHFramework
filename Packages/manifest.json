@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.code-philosophy.luban": "https://github.com/focus-creative-games/luban_unity.git",
     "com.tuyoogame.yooasset": "1.5.7",
     "com.unity.collab-proxy": "2.0.5",
     "com.unity.feature.development": "1.0.1",

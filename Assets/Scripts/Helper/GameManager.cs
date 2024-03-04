@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
+using SimpleJSON;
 using UnityEngine;
 using YooAsset;
 using Object = System.Object;
@@ -29,19 +30,12 @@ public class GameManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
-
+        //初始化yoo
         await InitializeYooAsset();
-    }
-    /// <summary>
-    /// 游戏入口Start脚本
-    /// </summary>
-    private void Start()
-    {
         //启动游戏显示默认Main UI
-    }
-    private void Update()
-    {
-        // UIManager.Instance.GetStackCount();
+        UIManager.Instance.ShowWindow(WindowID.WindowID_BackGround);
+        //加载配置表json
+        await ConfigsManager.Init();
     }
     private async UniTask InitializeYooAsset()
     {
@@ -208,10 +202,7 @@ public class GameManager : MonoBehaviour
                 //缓存至字典中
                 clientDatas.Add(playerData.GetType().Name,  playerData);
             }
-        } 
-        
-        UIManager.Instance.ShowWindow(WindowID.WindowID_BackGround);
-
+        }
     }
     /// <summary>
     /// 保存玩家数据

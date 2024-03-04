@@ -42,7 +42,7 @@ public static class ResourceHelper
     public static async UniTask<T> LoadGameObjectASync<T>(string path) where T : UnityEngine.Object
     {
         var asyncOperationHandle = YooAssets.LoadAssetAsync<T>(path);
-        await asyncOperationHandle;
+        await asyncOperationHandle.ToUniTask();
         return asyncOperationHandle.AssetObject as T;
     }
     /// <summary>
@@ -56,13 +56,39 @@ public static class ResourceHelper
         var  handle= YooAssets.LoadSubAssetsSync<SpriteAtlas>(assetName);
         return handle.GetSubAssetObject<Sprite>(spriteName);
     }
+    /// <summary>
+    /// 异步加载场景
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static async UniTask<string> LoadSceneAsync(string path)
     {
         string location = path;
         var sceneMode = UnityEngine.SceneManagement.LoadSceneMode.Single;
         bool suspendLoad = false;
         var handle = YooAssets.LoadSceneAsync(location, sceneMode, suspendLoad);
-        await handle;
+        await handle.ToUniTask();
         return handle.SceneObject.name;
+    }
+    /// <summary>
+    /// 同步加载原生文件
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public static string LoadRawFileSync(string fileName)
+    {
+        var rawFileText = YooAssets.LoadRawFileSync(fileName).GetRawFileText();
+        return rawFileText;
+    }
+    /// <summary>
+    /// 异步加载原生文件
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public static async UniTask<string> LoadRawFileASync(string fileName)
+    {
+        var rawFileText = YooAssets.LoadRawFileAsync(fileName);
+        await rawFileText.ToUniTask();
+        return rawFileText.GetRawFileText();
     }
 }
