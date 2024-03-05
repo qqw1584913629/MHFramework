@@ -6,15 +6,16 @@
 轻型Unity单机游戏框架（大杂烩）
 </p>
 <p align="center">
-[![GitHub stars](https://img.shields.io/github/stars/qqw1584913629/MHFramework.svg?style=social&label=Star&maxAge=2592000)](https://github.com/qqw1584913629/MHFramework/stargazers/)
+[![GitHub stars](https://img.shields.io/github/stars/qqw1584913629/MHFramework.svg?style=social&label=Star&maxAge=2592000)]
+(https://github.com/qqw1584913629/MHFramework/stargazers/)
 </p>
 目录
-- [MHFramework是什么？](#MHFramewor是什么？)
-- [Features](#Features)
+- [MHFramewor是什么？](#mhframewor是什么)
+- [Features](#features)
 - [快速开始](#快速开始)
 - [更多说明](#更多说明)
-  * [技术栈（当前）](#技术栈（当前）)
-  * [如何贡献](#如何贡献)
+  - [技术栈（当前）](#技术栈当前)
+  - [如何贡献](#如何贡献)
 
 ### MHFramewor是什么？
 1. MHFramework是基于Unity引擎开发的框架、希望打造一个什么都有的工具包框架
