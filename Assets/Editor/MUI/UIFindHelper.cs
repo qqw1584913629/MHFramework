@@ -17,6 +17,7 @@ public class UIFindHelper
         "TMPro.TextMeshProUGUI",
         "Input",
         "InputField",
+        "TMPro.TMP_InputField",
         "Scrollbar",
         "ToggleGroup",
         "Toggle",

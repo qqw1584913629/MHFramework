@@ -13,8 +13,16 @@ public class DlgLoginSystem : BasePanel
 	}
 	private void Start()
 	{
-		
+		self.M_LoginButtonButton.AddListener(OnLoginButtonClickHandler);
 	}
+
+	private void OnLoginButtonClickHandler()
+	{
+		var account = self.M_AccountTMP_InputField.text;
+		var password = self.M_PasswordTMP_InputField.text;
+		Debug.LogWarning($"account=>{account},password=>{password}");
+	}
+
 	public override void ShowWindow(string path)
 	{
 		base.ShowWindow(path);

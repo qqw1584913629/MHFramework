@@ -13,7 +13,7 @@ public class DlgBackGroundSystem : BasePanel
 	}
 	private void Start()
 	{
-		self.MLoginButton.onClick.AddListener(() =>
+		self.MLoginButton.AddListener(() =>
 		{
 			UIManager.Instance.ShowWindow(WindowID.WindowID_Login);
 		});

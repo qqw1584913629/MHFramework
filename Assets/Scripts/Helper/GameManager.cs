@@ -4,38 +4,29 @@ using System.Collections.Generic;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
 using SimpleJSON;
+using TMPro;
 using UnityEngine;
 using YooAsset;
 using Object = System.Object;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    private static GameManager instance;
     private Dictionary<string, Object> clientDatas = new Dictionary<string, object>();
-    public static GameManager Instance { get { return instance; } }
-
-
     [Header("YooAsset相关")][SerializeField] private EPlayMode PlayMode = EPlayMode.EditorSimulateMode;
-    
+
     /// <summary>
     /// 游戏入口Awake脚本
     /// </summary>
-    private async UniTask Awake()
+    protected override async UniTask Awake()
     {
-        if (instance == null)
-            instance = this;
-        else
-        {   
-            Destroy(gameObject);
-            return;
-        }
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
         //初始化yoo
         await InitializeYooAsset();
         //启动游戏显示默认Main UI
         UIManager.Instance.ShowWindow(WindowID.WindowID_BackGround);
         //加载配置表json
         await ConfigsManager.Init();
+        return;
     }
     private async UniTask InitializeYooAsset()
     {
