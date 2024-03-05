@@ -5,8 +5,7 @@
 <p align="center">
 轻型Unity单机游戏框架（大杂烩）
 </p>
-[![GitHub stars](https://img.shields.io/github/stars/qqw1584913629/MHFramework.svg?style=social&label=Star&maxAge=2592000)]
-(https://github.com/qqw1584913629/MHFramework/stargazers/)
+
 目录
 - [MHFramewor是什么？](#mhframewor是什么)
 - [Features](#features)
