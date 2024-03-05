@@ -20,7 +20,7 @@ namespace SetAssetBundleTag
             Debug.Log($"文件夹：{directoryDIRArray.Length},添加Code成功");
             foreach (DirectoryInfo currentDir in directoryDIRArray)
             {
-                if (currentDir.Name.Equals("Code") || currentDir.Name.Equals("UI") || currentDir.Name.Equals("Unit"))
+                if (!currentDir.Name.Equals("Clips"))
                 {
                     Debug.Log($"文件夹：{currentDir.Name},过滤成功");
                     continue;
@@ -83,7 +83,7 @@ namespace SetAssetBundleTag
         public static void WriteAudiosCode(string name, string type)
         {
             string strDlgName = name;
-            string strFilePath = Application.dataPath + "/Scripts/Clip/Helper/ClipID.cs" ;
+            string strFilePath = Application.dataPath + "/Scripts/Model/ClipID.cs" ;
             if(!File.Exists(strFilePath))
             {
                 Debug.LogError("当前不存在ClipID.cs!!!");

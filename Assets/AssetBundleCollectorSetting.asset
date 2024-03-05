@@ -23,7 +23,7 @@ MonoBehaviour:
     PackageDesc: 
     Groups:
     - GroupName: UI
-      GroupDesc: UI
+      GroupDesc: "\u754C\u9762"
       AssetTags: ui
       ActiveRuleName: EnableGroup
       Collectors:
@@ -45,6 +45,19 @@ MonoBehaviour:
         CollectorType: 0
         AddressRuleName: AddressByFileName
         PackRuleName: PackRawFile
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
+    - GroupName: Clips
+      GroupDesc: "\u97F3\u6548"
+      AssetTags: clips
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Bundles/Clips
+        CollectorGUID: 5a714984209568340bbb787d21dd4432
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
