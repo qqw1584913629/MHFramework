@@ -10,6 +10,10 @@ public enum UIWindowType
     PopUp,     // 弹出窗口
     Other,      //其他窗口
 }
+public interface IUIScrollItem
+{
+        
+}
 public class UIManager
 {
     private static UIManager _instance;

@@ -13,7 +13,7 @@ public class DlgTestSystem : BasePanel
 	}
 	private void Start()
 	{
-		
+		self.M_LoopScrollList_EnhancedScroller.ReloadData();
 	}
 	public override void ShowWindow(string path)
 	{

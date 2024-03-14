@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class UIEditorController
 {
+
     [MenuItem("GameObject/CreateMUICodes", false, -2)]
     static public void CreateNewCode()
     {
@@ -20,7 +21,7 @@ public class UIEditorController
     /// <param name="gameObject"></param>
     static void CreateWindowIdCode(GameObject gameObject)
     {
-        
+
         UIFindHelper.SpawnDlgCode(gameObject);
 
         
@@ -52,6 +53,8 @@ public class UIEditorController
         Debug.Log($"生成WindowID：{strDlgName}完毕");
 
     }
+
+
     public static int GetWindowIdEndIndex(string content)
     {
         Regex regex = new Regex("WindowID");

@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 public class UIFindHelper
@@ -10,6 +11,7 @@ public class UIFindHelper
     private static Dictionary<string, List<Component>> Path2WidgetCachedDict =null;
     private const string UIWidgetPrefix = "M";
     private const string UIGameObjectPrefix = "MG";
+    private const string UIItemPrefix = "Item";
     private static List<string> WidgetInterfaceList = new List<string>()
     {
         "Button",
@@ -23,15 +25,136 @@ public class UIFindHelper
         "Toggle",
         "Dropdown",
         "Slider",
-        "ScrollRect",
+        // "ScrollRect",
         "Image",
         "RawImage",
         "UIWarpContent",
+        "EnhancedScroller",
     };
 
+    #region ITEM
 
+    static public void SpawnLoopItemCode(GameObject gameObject)
+    {
+        Path2WidgetCachedDict?.Clear();
+        Path2WidgetCachedDict = new Dictionary<string, List<Component>>();
+        FindAllWidgets(gameObject.transform, "");
+        SpawnCodeForScrollLoopItemBehaviour(gameObject);
+        SpawnCodeForScrollLoopItemViewSystem(gameObject);
+        AssetDatabase.Refresh();
+        //todo
+        EditorApplication.update += AddComponentWhenCompileFinished;
+    }
+    static void AddComponentWhenCompileFinished()
+    {
+        if (!EditorApplication.isCompiling)
+        {
+            EditorApplication.update -= AddComponentWhenCompileFinished;
+            // 现在编译已经完成，在这里执行你的代码
+            var type = Type.GetType($"MH.Scroll_{Selection.activeObject.name}ViewSystem");
+            Undo.AddComponent(Selection.activeObject.GameObject(), type);
+        }
+    }
+    static void SpawnCodeForScrollLoopItemViewSystem(GameObject gameObject)
+    {
+        if (null == gameObject)
+        {
+            return;
+        }
+        string strDlgName = gameObject.name;
+
+        string strFilePath = Application.dataPath + "/Scripts/ItemViewSystem";
+
+        if ( !System.IO.Directory.Exists(strFilePath) )
+        {
+            System.IO.Directory.CreateDirectory(strFilePath);
+        }
+        strFilePath     = Application.dataPath + "/Scripts/ItemViewSystem/Scroll_" + strDlgName + "ViewSystem.cs";
+        StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
+
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.AppendLine()
+            .AppendLine("using UnityEngine;");
+        strBuilder.AppendLine("using UnityEngine.UI;");
+        strBuilder.AppendLine("namespace MH");
+        strBuilder.AppendLine("{");
+        
+        strBuilder.AppendFormat("\tpublic  class Scroll_{0}ViewSystem : MonoBehaviour \r\n", strDlgName)
+            .AppendLine("\t{");
+        strBuilder.AppendLine($"\t\tpublic Scroll_{strDlgName} View;");
+        strBuilder.AppendLine($"\t\tprivate void Awake()");
+        strBuilder.AppendLine("\t\t{");
+        strBuilder.AppendLine($"\t\t\tif (gameObject.GetComponent<Scroll_{strDlgName}>() == null)");
+        strBuilder.AppendLine($"\t\t\t\tView = gameObject.AddComponent<Scroll_{strDlgName}>();");
+        strBuilder.AppendLine($"\t\t\tView.uiTransform = transform;");
+        strBuilder.AppendLine("\t\t}");
+        strBuilder.AppendFormat("\t\tprivate void OnDestroy()\r\n");
+        strBuilder.AppendLine("\t\t{");
+        strBuilder.AppendFormat("\t\t\tView.DestroyWidget();\r\n");
+        strBuilder.AppendLine("\t\t}\n");
+        strBuilder.AppendLine("\t}");
+        strBuilder.AppendLine("}");
+        
+        sw.Write(strBuilder);
+        sw.Flush();
+        sw.Close();
+    }
+    static void SpawnCodeForScrollLoopItemBehaviour(GameObject gameObject)
+    {
+        if (null == gameObject)
+        {
+            return;
+        }
+        string strDlgName = gameObject.name;
+
+        string strFilePath = Application.dataPath + "/Scripts/ItemView";
+
+        if ( !System.IO.Directory.Exists(strFilePath) )
+        {
+            System.IO.Directory.CreateDirectory(strFilePath);
+        }
+        strFilePath     = Application.dataPath + "/Scripts/ItemView/" + strDlgName + ".cs";
+        StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
+
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.AppendLine()
+            .AppendLine("using UnityEngine;");
+        strBuilder.AppendLine("using UnityEngine.UI;");
+        strBuilder.AppendLine("namespace MH");
+        strBuilder.AppendLine("{");
+        strBuilder.AppendFormat("\tpublic  class Scroll_{0} : MonoBehaviour, IUIScrollItem \r\n", strDlgName)
+            .AppendLine("\t{");
+        
+        strBuilder.AppendFormat("\t\tpublic Scroll_{0} BindTrans(Transform trans)\r\n",strDlgName);
+        strBuilder.AppendLine("\t\t{");
+        strBuilder.AppendLine("\t\t\tthis.uiTransform = trans;");
+        strBuilder.AppendLine("\t\t\treturn this;");
+        strBuilder.AppendLine("\t\t}\n");
+        
+        CreateWidgetBindCode(ref strBuilder, gameObject.transform);
+        CreateDestroyWidgetCode(ref strBuilder);
+        CreateDeclareCode(ref strBuilder);
+        
+        strBuilder.AppendLine("\t\tpublic Transform uiTransform = null;");
+        
+        strBuilder.AppendLine("\t}");
+        strBuilder.AppendLine("}");
+        
+        sw.Write(strBuilder);
+        sw.Flush();
+        sw.Close();
+    }
+    #endregion
     public static void SpawnDlgCode(GameObject gameObject)
     {
+        string uiName = gameObject.name;
+        if (uiName.StartsWith(UIItemPrefix))
+        {
+            Debug.LogWarning($"-------- 开始生成滚动列表项: {uiName} 相关代码 -------------");
+            SpawnLoopItemCode(gameObject);
+            Debug.LogWarning($" 开始生成滚动列表项: {uiName} 完毕！！！");
+            return;
+        }
         Path2WidgetCachedDict = new Dictionary<string, List<Component>>();
         
         FindAllWidgets(gameObject.transform, "");

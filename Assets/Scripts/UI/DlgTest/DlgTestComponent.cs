@@ -20,6 +20,23 @@ using UnityEngine.UI;
      		}
      	}
 
+		public EnhancedUI.EnhancedScroller.EnhancedScroller M_LoopScrollList_EnhancedScroller
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_LoopScrollList_EnhancedScroller == null )
+     			{
+		    		this.m_M_LoopScrollList_EnhancedScroller = MUIHelepr.FindDeepChild<EnhancedUI.EnhancedScroller.EnhancedScroller>(this.uiTransform.gameObject,"MG_Mask/M_LoopScrollList_");
+     			}
+     			return this.m_M_LoopScrollList_EnhancedScroller;
+     		}
+     	}
+
 		public UnityEngine.UI.InputField M_AccountInputField
      	{
      		get
@@ -91,6 +108,7 @@ using UnityEngine.UI;
 		public void DestroyWidget()
 		{
 			this.m_MG_MaskRectTransform = null;
+			this.m_M_LoopScrollList_EnhancedScroller = null;
 			this.m_M_AccountInputField = null;
 			this.m_M_AccountImage = null;
 			this.m_M_PasswordInputField = null;
@@ -99,6 +117,7 @@ using UnityEngine.UI;
 		}
 
 		private UnityEngine.RectTransform m_MG_MaskRectTransform = null;
+		private EnhancedUI.EnhancedScroller.EnhancedScroller m_M_LoopScrollList_EnhancedScroller = null;
 		private UnityEngine.UI.InputField m_M_AccountInputField = null;
 		private UnityEngine.UI.Image m_M_AccountImage = null;
 		private UnityEngine.UI.InputField m_M_PasswordInputField = null;
