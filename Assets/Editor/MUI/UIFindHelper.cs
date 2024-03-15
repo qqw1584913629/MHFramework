@@ -51,8 +51,9 @@ public class UIFindHelper
         {
             EditorApplication.update -= AddComponentWhenCompileFinished;
             // 现在编译已经完成，在这里执行你的代码
-            var type = Type.GetType($"MH.Scroll_{Selection.activeObject.name}ViewSystem");
+            var type = Type.GetType($"Scroll_{Selection.activeObject.name}ViewSystem");
             Undo.AddComponent(Selection.activeObject.GameObject(), type);
+            AssetDatabase.Refresh();
         }
     }
     static void SpawnCodeForScrollLoopItemViewSystem(GameObject gameObject)
@@ -63,29 +64,30 @@ public class UIFindHelper
         }
         string strDlgName = gameObject.name;
 
-        string strFilePath = Application.dataPath + "/Scripts/ItemViewSystem";
+        string strFilePath = Application.dataPath + "/Scripts/Item/ItemViewSystem";
 
         if ( !System.IO.Directory.Exists(strFilePath) )
         {
             System.IO.Directory.CreateDirectory(strFilePath);
         }
-        strFilePath     = Application.dataPath + "/Scripts/ItemViewSystem/Scroll_" + strDlgName + "ViewSystem.cs";
+        strFilePath     = Application.dataPath + "/Scripts/Item/ItemViewSystem/Scroll_" + strDlgName + "ViewSystem.cs";
         StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
 
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.AppendLine()
             .AppendLine("using UnityEngine;");
         strBuilder.AppendLine("using UnityEngine.UI;");
-        strBuilder.AppendLine("namespace MH");
-        strBuilder.AppendLine("{");
-        
-        strBuilder.AppendFormat("\tpublic  class Scroll_{0}ViewSystem : MonoBehaviour \r\n", strDlgName)
+        strBuilder.AppendLine("using EnhancedUI.EnhancedScroller;");
+        strBuilder.AppendLine($"\t[RequireComponent(typeof(Scroll_{strDlgName}))]");
+        strBuilder.AppendLine("\t[DisallowMultipleComponent]");
+        strBuilder.AppendLine("\t[ExecuteAlways]");
+        strBuilder.AppendFormat("\tpublic  class Scroll_{0}ViewSystem : EnhancedScrollerCellView \r\n", strDlgName)
             .AppendLine("\t{");
         strBuilder.AppendLine($"\t\tpublic Scroll_{strDlgName} View;");
         strBuilder.AppendLine($"\t\tprivate void Awake()");
         strBuilder.AppendLine("\t\t{");
-        strBuilder.AppendLine($"\t\t\tif (gameObject.GetComponent<Scroll_{strDlgName}>() == null)");
-        strBuilder.AppendLine($"\t\t\t\tView = gameObject.AddComponent<Scroll_{strDlgName}>();");
+        strBuilder.AppendLine($"\t\t\tcellIdentifier = typeof(Scroll_{strDlgName}ViewSystem).ToString();");
+        strBuilder.AppendLine($"\t\t\tView = gameObject.GetComponent<Scroll_{strDlgName}>();");
         strBuilder.AppendLine($"\t\t\tView.uiTransform = transform;");
         strBuilder.AppendLine("\t\t}");
         strBuilder.AppendFormat("\t\tprivate void OnDestroy()\r\n");
@@ -93,7 +95,6 @@ public class UIFindHelper
         strBuilder.AppendFormat("\t\t\tView.DestroyWidget();\r\n");
         strBuilder.AppendLine("\t\t}\n");
         strBuilder.AppendLine("\t}");
-        strBuilder.AppendLine("}");
         
         sw.Write(strBuilder);
         sw.Flush();
@@ -107,21 +108,19 @@ public class UIFindHelper
         }
         string strDlgName = gameObject.name;
 
-        string strFilePath = Application.dataPath + "/Scripts/ItemView";
+        string strFilePath = Application.dataPath + "/Scripts/Item/ItemView";
 
         if ( !System.IO.Directory.Exists(strFilePath) )
         {
             System.IO.Directory.CreateDirectory(strFilePath);
         }
-        strFilePath     = Application.dataPath + "/Scripts/ItemView/" + strDlgName + ".cs";
+        strFilePath     = Application.dataPath + "/Scripts/Item/ItemView/Scroll_" + strDlgName + ".cs";
         StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
 
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.AppendLine()
             .AppendLine("using UnityEngine;");
         strBuilder.AppendLine("using UnityEngine.UI;");
-        strBuilder.AppendLine("namespace MH");
-        strBuilder.AppendLine("{");
         strBuilder.AppendFormat("\tpublic  class Scroll_{0} : MonoBehaviour, IUIScrollItem \r\n", strDlgName)
             .AppendLine("\t{");
         
@@ -138,7 +137,6 @@ public class UIFindHelper
         strBuilder.AppendLine("\t\tpublic Transform uiTransform = null;");
         
         strBuilder.AppendLine("\t}");
-        strBuilder.AppendLine("}");
         
         sw.Write(strBuilder);
         sw.Flush();
