@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -42,19 +43,20 @@ public class UIFindHelper
         SpawnCodeForScrollLoopItemBehaviour(gameObject);
         SpawnCodeForScrollLoopItemViewSystem(gameObject);
         AssetDatabase.Refresh();
-        //todo
-        EditorApplication.update += AddComponentWhenCompileFinished;
+        
     }
+    [MenuItem("GameObject/AddItemComponent", false, -3)]
     static void AddComponentWhenCompileFinished()
     {
-        if (!EditorApplication.isCompiling)
-        {
-            EditorApplication.update -= AddComponentWhenCompileFinished;
-            // 现在编译已经完成，在这里执行你的代码
-            var type = Type.GetType($"Scroll_{Selection.activeObject.name}ViewSystem");
-            Undo.AddComponent(Selection.activeObject.GameObject(), type);
-            AssetDatabase.Refresh();
-        }
+        // 现在编译已经完成，在这里执行你的代码
+        string typeName = $"Scroll_{Selection.activeObject.name}ViewSystem";
+        Assembly assembly = Assembly.Load("Assembly-CSharp");
+        var types = assembly.GetTypes();
+        var type = types.FirstOrDefault(t => t.Name.Equals(typeName));
+        if (type == null)
+            return;
+        GameObject selectedGameObject = Selection.activeObject as GameObject;
+        selectedGameObject.AddComponent(type); // 添加组件
     }
     static void SpawnCodeForScrollLoopItemViewSystem(GameObject gameObject)
     {
@@ -78,6 +80,8 @@ public class UIFindHelper
             .AppendLine("using UnityEngine;");
         strBuilder.AppendLine("using UnityEngine.UI;");
         strBuilder.AppendLine("using EnhancedUI.EnhancedScroller;");
+        strBuilder.AppendLine("namespace MH");
+        strBuilder.AppendLine("{");
         strBuilder.AppendLine($"\t[RequireComponent(typeof(Scroll_{strDlgName}))]");
         strBuilder.AppendLine("\t[DisallowMultipleComponent]");
         strBuilder.AppendLine("\t[ExecuteAlways]");
@@ -95,6 +99,7 @@ public class UIFindHelper
         strBuilder.AppendFormat("\t\t\tView.DestroyWidget();\r\n");
         strBuilder.AppendLine("\t\t}\n");
         strBuilder.AppendLine("\t}");
+        strBuilder.AppendLine("}");
         
         sw.Write(strBuilder);
         sw.Flush();
@@ -121,6 +126,8 @@ public class UIFindHelper
         strBuilder.AppendLine()
             .AppendLine("using UnityEngine;");
         strBuilder.AppendLine("using UnityEngine.UI;");
+        strBuilder.AppendLine("namespace MH");
+        strBuilder.AppendLine("{");
         strBuilder.AppendFormat("\tpublic  class Scroll_{0} : MonoBehaviour, IUIScrollItem \r\n", strDlgName)
             .AppendLine("\t{");
         
@@ -137,6 +144,7 @@ public class UIFindHelper
         strBuilder.AppendLine("\t\tpublic Transform uiTransform = null;");
         
         strBuilder.AppendLine("\t}");
+        strBuilder.AppendLine("}");
         
         sw.Write(strBuilder);
         sw.Flush();

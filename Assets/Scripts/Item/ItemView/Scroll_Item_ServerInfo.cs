@@ -1,6 +1,8 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
+namespace MH
+{
 	public  class Scroll_Item_ServerInfo : MonoBehaviour, IUIScrollItem 
 	{
 		public Scroll_Item_ServerInfo BindTrans(Transform trans)
@@ -35,3 +37,4 @@ using UnityEngine.UI;
 		private TMPro.TextMeshProUGUI m_M_TextTextMeshProUGUI = null;
 		public Transform uiTransform = null;
 	}
+}

@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using EnhancedUI.EnhancedScroller;
+namespace MH
+{
 	[RequireComponent(typeof(Scroll_Item_ServerInfo))]
 	[DisallowMultipleComponent]
 	[ExecuteAlways]
@@ -20,3 +22,4 @@ using EnhancedUI.EnhancedScroller;
 		}
 
 	}
+}
