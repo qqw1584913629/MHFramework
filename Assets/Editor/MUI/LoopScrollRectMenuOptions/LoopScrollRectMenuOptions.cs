@@ -238,7 +238,7 @@ public static class LoopScrollRectDefaultControls
 
         // Setup UI components.
 
-        root.AddComponent<EnhancedScroller>();
+        root.AddComponent<MHLoopEnhancedScroller>();
         ScrollRect scrollRect = root.GetComponent<ScrollRect>();
         scrollRect.content = contentRT;
         root.AddComponent<RectMask2D>();
@@ -287,7 +287,7 @@ public static class LoopScrollRectDefaultControls
 
         // Setup UI components.
 
-        root.AddComponent<EnhancedScroller>();
+        root.AddComponent<MHLoopEnhancedScroller>();
         ScrollRect scrollRect = root.GetComponent<ScrollRect>();
         scrollRect.content = contentRT;
         root.AddComponent<RectMask2D>();

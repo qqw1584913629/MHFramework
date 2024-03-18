@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 282233173893742811}
   - component: {fileID: 4813953207172019047}
   - component: {fileID: 1863427030068205234}
-  - component: {fileID: 7521413514769723531}
+  - component: {fileID: -6892315942388151458}
   m_Layer: 5
   m_Name: Item_ServerInfo
   m_TagString: Untagged
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7521413514769723531
+--- !u!114 &-6892315942388151458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,14 +222,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6366060471781856621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f75717e94199704f82f26fcf6953e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: 100
-  m_PreferredHeight: 100
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
+  cellIdentifier: Item_ServerInfo

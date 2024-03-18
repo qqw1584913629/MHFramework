@@ -12,7 +12,10 @@ public enum UIWindowType
 }
 public interface IUIScrollItem
 {
-        
+    
+}public interface IUILogic
+{
+    
 }
 public class UIManager
 {

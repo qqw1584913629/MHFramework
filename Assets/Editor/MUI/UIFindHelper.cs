@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 public class UIFindHelper
 {
@@ -30,7 +31,7 @@ public class UIFindHelper
         "Image",
         "RawImage",
         "UIWarpContent",
-        "EnhancedScroller",
+        "MHLoopEnhancedScroller",
     };
 
     #region ITEM
@@ -45,9 +46,11 @@ public class UIFindHelper
         AssetDatabase.Refresh();
         
     }
-    [MenuItem("GameObject/AddItemComponent", false, -3)]
+    // [DidReloadScripts]
     static void AddComponentWhenCompileFinished()
     {
+        if (!Selection.activeObject || !Selection.activeObject.name.Contains("Item"))
+            return;
         // 现在编译已经完成，在这里执行你的代码
         string typeName = $"Scroll_{Selection.activeObject.name}ViewSystem";
         Assembly assembly = Assembly.Load("Assembly-CSharp");
@@ -57,6 +60,14 @@ public class UIFindHelper
             return;
         GameObject selectedGameObject = Selection.activeObject as GameObject;
         selectedGameObject.AddComponent(type); // 添加组件
+        // 检查选中的游戏对象是否是预制体的实例
+        if(PrefabUtility.IsPartOfNonAssetPrefabInstance(selectedGameObject))
+        {
+            // 将添加的组件的更改应用到预制体文件中
+            PrefabUtility.RecordPrefabInstancePropertyModifications(selectedGameObject);
+        }
+
+        AssetDatabase.Refresh();
     }
     static void SpawnCodeForScrollLoopItemViewSystem(GameObject gameObject)
     {
