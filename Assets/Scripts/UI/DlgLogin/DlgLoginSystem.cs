@@ -1,4 +1,8 @@
 ﻿
+using System;
+using System.Security.Cryptography;
+using System.Text;
+using Helper;
 using Model;
 using TMPro;
 using UnityEngine;
@@ -17,8 +21,33 @@ public class DlgLoginSystem : BasePanel
 	}
 	private void Start()
 	{
-		self.M_LoginButtonButton.AddListener(OnLoginButtonClickHandler);
+		self.M_LoginButton.AddListener(OnLoginButtonClickHandler);
+		self.M_RegisterButton.AddListener(OnRegisterButtonClickHandler);
 		self.M_PasswordTMP_InputField.contentType = TMP_InputField.ContentType.Password;
+	}
+
+	private void OnRegisterButtonClickHandler()
+	{
+		//获取账号
+		var account = self.M_AccountTMP_InputField.text;
+		//获取密码
+		var password = self.M_PasswordTMP_InputField.text;
+		if (string.IsNullOrWhiteSpace(account) ||  string.IsNullOrWhiteSpace(password))
+		{
+			TipsHelper.ShowTipsInfo("账号或密码为空");
+			return;
+		}
+		//创建账号信息
+		AccountInfo accountInfo = new AccountInfo();
+		//设置账号
+		accountInfo.account = account;
+		//md5加密密码
+		accountInfo.password = MD5Helper.StringMD5(password);
+		//设置角色
+		accountInfo.role = Role.Normal;
+		//保存账号信息
+		SaveDataManager.SaveDataByPlayerPrefs(nameof(AccountInfo), accountInfo);
+		TipsHelper.ShowTipsInfo("注册成功");
 	}
 
 	private void OnLoginButtonClickHandler()
@@ -26,17 +55,36 @@ public class DlgLoginSystem : BasePanel
 		var account = self.M_AccountTMP_InputField.text;
 		var password = self.M_PasswordTMP_InputField.text;
 		
+		//特殊处理
+		if (account.Equals("admin") && password.Equals("admin"))
+		{
+			//管理员登录
+		}
+
+		if (string.IsNullOrWhiteSpace(account) ||  string.IsNullOrWhiteSpace(password))
+		{
+			TipsHelper.ShowTipsInfo("账号或密码为空");
+			return;
+		}
+		
+		
 		//首先判断是否有账号存在
 		var accountInfo = JsonUtility.FromJson<AccountInfo>(SaveDataManager.LoadDataByPlayerPrefs(nameof(AccountInfo)));
 		if (accountInfo == null)
 		{
 			//账号不存在
-			UIManager.Instance.ShowWindow(WindowID.WindowID_Tips);
-			UIManager.Instance.GetUILogic<DlgTipsSystem>(WindowID.WindowID_Tips).SetContent("账号不存在");
+			TipsHelper.ShowTipsInfo("账号不存在");
+			return;
 		}
-
-
-		Debug.LogWarning($"account=>{account},password=>{password}");
+		//如果有账号则判断密码是否一致
+		if (!accountInfo.password.Equals(MD5Helper.StringMD5(password)))
+		{
+			TipsHelper.ShowTipsInfo("密码错误");
+			return;
+		}
+		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
+		UIManager.Instance.CloseWindow(WindowID.WindowID_Login);
+		Debug.LogWarning($"登录成功：account=>{account},password=>{MD5Helper.StringMD5(password)}");
 	}
 
 	public override void ShowWindow(string path)

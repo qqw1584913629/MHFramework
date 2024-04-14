@@ -23,6 +23,7 @@ public class GameManager : Singleton<GameManager>
         //初始化yoo
         await InitializeYooAsset();
         //启动游戏显示默认Main UI
+        UIManager.Instance.ShowWindow(WindowID.WindowID_BackGround);
         UIManager.Instance.ShowWindow(WindowID.WindowID_Login);
         //加载配置表json
         await ConfigsManager.Init();

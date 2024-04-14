@@ -125,14 +125,14 @@ public class UIManager
         if (!prefabWindowDict.TryGetValue(path, out GameObject go))
         {
             var obj = ResourceHelper.LoadGameObjectSync<GameObject>(path);
-            //如果界面没有在缓存中则实例化一个
-            prefabWindowDict.Add(path, obj);
+
             //打开界面
             var panelObject = GameObject.Instantiate(obj, UIRoot, false);
             if (panelObject.GetComponent(Type.GetType($"{obj.name}System")) == null)
                 panelObject.AddComponent(Type.GetType($"{obj.name}System"));
                     
-
+            //如果界面没有在缓存中则实例化一个
+            prefabWindowDict.Add(path, panelObject);
             basePanel = panelObject.GetComponent<BasePanel>();
             SetRoot(basePanel, GetTargetRoot(basePanel.windowType));
             openWindowDict.Add(path, basePanel);
@@ -148,10 +148,7 @@ public class UIManager
             return;
         }
         //如果有
-        var panelObject1 = GameObject.Instantiate(go, UIRoot, false);
-        if (panelObject1.GetComponent(Type.GetType($"{go.name}System")) == null)
-            panelObject1.AddComponent(Type.GetType($"{go.name}System"));
-        basePanel = panelObject1.GetComponent<BasePanel>();
+        basePanel = go.GetComponent<BasePanel>();
         openWindowDict.Add(path, basePanel);
         //查看上一个最新打开的UI的
         if (openWindowStack.Count > 0)

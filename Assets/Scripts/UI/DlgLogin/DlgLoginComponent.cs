@@ -156,7 +156,7 @@ using UnityEngine.UI;
      		}
      	}
 
-		public UnityEngine.UI.Button M_LoginButtonButton
+		public UnityEngine.UI.Button M_RegisterButton
      	{
      		get
      		{
@@ -165,15 +165,15 @@ using UnityEngine.UI;
      				Debug.LogError("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_M_LoginButtonButton == null )
+     			if( this.m_M_RegisterButton == null )
      			{
-		    		this.m_M_LoginButtonButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Center/GameObject/M_LoginButton");
+		    		this.m_M_RegisterButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Center/GameObject/GameObject (3)/M_Register");
      			}
-     			return this.m_M_LoginButtonButton;
+     			return this.m_M_RegisterButton;
      		}
      	}
 
-		public UnityEngine.UI.Image M_LoginButtonImage
+		public UnityEngine.UI.Image M_RegisterImage
      	{
      		get
      		{
@@ -182,11 +182,45 @@ using UnityEngine.UI;
      				Debug.LogError("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_M_LoginButtonImage == null )
+     			if( this.m_M_RegisterImage == null )
      			{
-		    		this.m_M_LoginButtonImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center/GameObject/M_LoginButton");
+		    		this.m_M_RegisterImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center/GameObject/GameObject (3)/M_Register");
      			}
-     			return this.m_M_LoginButtonImage;
+     			return this.m_M_RegisterImage;
+     		}
+     	}
+
+		public UnityEngine.UI.Button M_LoginButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_LoginButton == null )
+     			{
+		    		this.m_M_LoginButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Center/GameObject/GameObject (3)/M_Login");
+     			}
+     			return this.m_M_LoginButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image M_LoginImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_LoginImage == null )
+     			{
+		    		this.m_M_LoginImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center/GameObject/GameObject (3)/M_Login");
+     			}
+     			return this.m_M_LoginImage;
      		}
      	}
 
@@ -201,8 +235,10 @@ using UnityEngine.UI;
 			this.m_M_AccountImage = null;
 			this.m_M_PasswordTMP_InputField = null;
 			this.m_M_PasswordImage = null;
-			this.m_M_LoginButtonButton = null;
-			this.m_M_LoginButtonImage = null;
+			this.m_M_RegisterButton = null;
+			this.m_M_RegisterImage = null;
+			this.m_M_LoginButton = null;
+			this.m_M_LoginImage = null;
 			this.uiTransform = null;
 		}
 
@@ -215,7 +251,9 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_M_AccountImage = null;
 		private TMPro.TMP_InputField m_M_PasswordTMP_InputField = null;
 		private UnityEngine.UI.Image m_M_PasswordImage = null;
-		private UnityEngine.UI.Button m_M_LoginButtonButton = null;
-		private UnityEngine.UI.Image m_M_LoginButtonImage = null;
+		private UnityEngine.UI.Button m_M_RegisterButton = null;
+		private UnityEngine.UI.Image m_M_RegisterImage = null;
+		private UnityEngine.UI.Button m_M_LoginButton = null;
+		private UnityEngine.UI.Image m_M_LoginImage = null;
 		public Transform uiTransform = null;
 	}

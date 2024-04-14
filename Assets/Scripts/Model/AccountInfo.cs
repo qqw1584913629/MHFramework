@@ -1,3 +1,5 @@
+using System;
+
 namespace Model
 {
     public enum Role
@@ -5,6 +7,7 @@ namespace Model
         Normal = 0,
         Manager,
     }
+    [Serializable]
     public class AccountInfo
     {
         public string account;

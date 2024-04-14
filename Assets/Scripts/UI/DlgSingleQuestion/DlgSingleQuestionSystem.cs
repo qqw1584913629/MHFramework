@@ -1,0 +1,124 @@
+﻿
+using System.Collections.Generic;
+using System.Linq;
+using Helper;
+using Model;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+using Random = System.Random;
+
+public class DlgSingleQuestionSystem : BasePanel
+{
+	private DlgSingleQuestionComponent self;
+	private int level = 1;
+	private string ans;
+	private int cur_Score;
+	private List<string> ansList = new List<string>();
+	private void Awake()
+	{
+		if (gameObject.GetComponent<DlgSingleQuestionComponent>() == null)
+			self = gameObject.AddComponent<DlgSingleQuestionComponent>();
+		self.uiTransform = transform;
+		windowType = UIWindowType.Normal;
+		level = PlayerPrefs.GetInt(PreName.SingleQuestion.ToString(), 1);
+	}
+	private void Start()
+	{
+		self.M_CloseButton.AddListener(() =>
+		{
+			UIManager.Instance.HideWindow(WindowID.WindowID_SingleQuestion);
+		});
+		self.M_Ans1Button.AddListener(() =>
+		{
+			SubmitAns(self.M_Ans1TextTextMeshProUGUI);
+		});
+		self.M_Ans2Button.AddListener(() =>
+		{
+			SubmitAns(self.M_Ans2TextTextMeshProUGUI);
+		});
+		self.M_Ans3Button.AddListener(() =>
+		{
+			SubmitAns(self.M_Ans3TextTextMeshProUGUI);
+		});
+		self.M_Ans4Button.AddListener(() =>
+		{
+			SubmitAns(self.M_Ans4TextTextMeshProUGUI);
+		});
+	}
+
+	private void SubmitAns(TextMeshProUGUI text)
+	{
+		var s = text.text.Split(".")[1];
+		if (s.Equals(ans))
+		{
+			//答案正确
+			text.color = Color.green;
+
+			//下一题
+			level++;
+			PlayerPrefs.SetInt(PreName.SingleQuestion.ToString(), level);
+			var i = PlayerPrefs.GetInt(PreName.Score.ToString(), 0);
+			i += 5;
+			cur_Score += 5;
+			PlayerPrefs.SetInt(PreName.Score.ToString(), i);
+			Refresh();
+		}
+		else
+			text.color = Color.red;
+	}
+
+	void ShuffleList(List<string> list)
+	{
+		Random random = new Random();
+		int n = list.Count;
+
+		for (int i = 0; i < n - 1; i++)
+		{
+			int j = random.Next(i, n);
+			(list[i], list[j]) = (list[j], list[i]);
+		}
+	}
+	private void Refresh()
+	{
+		ansList.Clear();
+		var singleInfoComponent = JsonUtility.FromJson<SingleInfoComponent>(SaveDataManager.LoadDataByPlayerPrefs(nameof(SingleInfoComponent)));
+		if (level >= singleInfoComponent.lists.Count)
+		{
+			TipsHelper.ShowTipsInfo($"答题结束，本轮分数为：{cur_Score} 分");
+			self.M_QuestionTextMeshProUGUI.SetText("已完成全部题目");
+			self.M_Ans1Button.SetVisible(false);
+			self.M_Ans2Button.SetVisible(false);
+			self.M_Ans3Button.SetVisible(false);
+			self.M_Ans4Button.SetVisible(false);
+			return;
+		}
+		var config = singleInfoComponent.lists[level];
+		ans = config.ans;
+		ansList.Add(config.ans1);
+		ansList.Add(config.ans2);
+		ansList.Add(config.ans3);
+		ansList.Add(config.ans4);
+		ShuffleList(ansList);
+		self.M_QuestionTextMeshProUGUI.SetText(config.question);
+		self.M_Ans1TextTextMeshProUGUI.SetText($"A.{ansList[0]}");
+		self.M_Ans2TextTextMeshProUGUI.SetText($"B.{ansList[1]}");
+		self.M_Ans3TextTextMeshProUGUI.SetText($"C.{ansList[2]}");
+		self.M_Ans4TextTextMeshProUGUI.SetText($"D.{ansList[3]}");
+	}
+	public override void ShowWindow(string path)
+	{
+		base.ShowWindow(path);
+		cur_Score = 0;
+		Refresh();
+	}
+	public override void HideWindow()
+	{
+		base.HideWindow();
+	}
+	public override void CloseWindow()
+	{
+		base.CloseWindow();
+	}
+}

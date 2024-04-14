@@ -14,26 +14,26 @@ using SimpleJSON;
 
 namespace cfg
 {
-public partial class Tables
-{
-    public item.TbItem TbItem {get; private set; }
-
-    private Tables()
+    public partial class Tables
     {
-    }
+        public item.TbItem TbItem {get; set; }
+        public single.TbSingle TbSingle {get; set; }
+        public trueOrFalse.TbTrueOrFalse TbTrueOrFalse {get; set; }
 
-    public static async UniTask<Tables> CreateAsync(Func<string, UniTask<JSONNode>> loader)
-    {
-        Tables tables = new Tables();
-        tables.TbItem = new item.TbItem(await loader("item_tbitem"));            
-        tables.ResolveRef();
-        return tables;
+        public static async UniTask<Tables> CreateAsync(Func<string, UniTask<JSONNode>> loader)
+        {
+            Tables tables = new Tables();
+            tables.TbItem = new item.TbItem(await loader("item_tbitem"));     
+            tables.TbSingle = new single.TbSingle(await loader("single_tbsingle"));
+            tables.TbTrueOrFalse = new trueOrFalse.TbTrueOrFalse(await loader("trueorfalse_tbtrueOrFalse"));
+            tables.ResolveRef();
+            return tables;
+        }
+        private void ResolveRef()
+        {
+            TbItem.ResolveRef(this);
+            TbSingle.ResolveRef(this);
+            TbTrueOrFalse.ResolveRef(this);
+        }
     }
-
-    private void ResolveRef()
-    {
-        TbItem.ResolveRef(this);
-    }
-}
-
 }
