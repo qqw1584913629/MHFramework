@@ -91,7 +91,7 @@ public class UIManager
         }
     }
 
-    public BasePanel GetUILogic(string path)
+    public T GetUILogic<T>(string path) where T : BasePanel
     {
         //检查缓存
         if (!windowConfigDict.TryGetValue(path, out string name))
@@ -105,7 +105,7 @@ public class UIManager
             Debug.LogError("界面还未打开！！！");
             return null;
         }
-        return basePanel;
+        return basePanel as T;
     }
    public void ShowWindow(string path)
     {

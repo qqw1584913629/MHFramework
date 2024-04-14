@@ -12,9 +12,7 @@ namespace SetAssetBundleTag
         [MenuItem("CreatePlayerModelDataCodeTools/Create Model Code")]
         public static void SetABLabel() {
  
-            // 定义需要打包资源的文件夹根目录
             string strNeedSetLabelRoot = Application.dataPath + "/Scripts/Model/";
-
             FileInfo[] directoryDIRArray = null;
             DirectoryInfo dirTempInfo = new DirectoryInfo(strNeedSetLabelRoot);
             directoryDIRArray = dirTempInfo.GetFiles();
