@@ -54,11 +54,18 @@ public class DlgLoginSystem : BasePanel
 	{
 		var account = self.M_AccountTMP_InputField.text;
 		var password = self.M_PasswordTMP_InputField.text;
-		
-		//特殊处理
+		AccountInfo accountEntity = new AccountInfo();
+		//特殊处理管理员
 		if (account.Equals("admin") && password.Equals("admin"))
 		{
 			//管理员登录
+			accountEntity.account = "admin";
+			accountEntity.password = "admin";
+			accountEntity.role = Role.Manager;
+			GameManager.Instance.currentLoginAccountInfo = accountEntity;
+			UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
+			UIManager.Instance.CloseWindow(WindowID.WindowID_Login);
+			return;
 		}
 
 		if (string.IsNullOrWhiteSpace(account) ||  string.IsNullOrWhiteSpace(password))
@@ -82,9 +89,11 @@ public class DlgLoginSystem : BasePanel
 			TipsHelper.ShowTipsInfo("密码错误");
 			return;
 		}
+		accountEntity.account = account;
+		accountEntity.role = accountInfo.role;
 		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
 		UIManager.Instance.CloseWindow(WindowID.WindowID_Login);
-		Debug.LogWarning($"登录成功：account=>{account},password=>{MD5Helper.StringMD5(password)}");
+		GameManager.Instance.currentLoginAccountInfo = accountEntity;
 	}
 
 	public override void ShowWindow(string path)

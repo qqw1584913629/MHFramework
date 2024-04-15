@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
+using Model;
 using SimpleJSON;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,11 @@ public class GameManager : Singleton<GameManager>
 {
     private Dictionary<string, Object> clientDatas = new Dictionary<string, object>();
     [Header("YooAsset相关")][SerializeField] private EPlayMode PlayMode = EPlayMode.EditorSimulateMode;
+
+
+
+    public AccountInfo currentLoginAccountInfo;
+    
 
     /// <summary>
     /// 游戏入口Awake脚本

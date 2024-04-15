@@ -48,7 +48,7 @@ using UnityEngine.UI;
      			}
      			if( this.m_M_StudioButton == null )
      			{
-		    		this.m_M_StudioButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"MG_Center/GameObject/M_Studio");
+		    		this.m_M_StudioButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"MG_Center/GameObject/Center/M_Studio");
      			}
      			return this.m_M_StudioButton;
      		}
@@ -65,7 +65,7 @@ using UnityEngine.UI;
      			}
      			if( this.m_M_StudioImage == null )
      			{
-		    		this.m_M_StudioImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"MG_Center/GameObject/M_Studio");
+		    		this.m_M_StudioImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"MG_Center/GameObject/Center/M_Studio");
      			}
      			return this.m_M_StudioImage;
      		}
@@ -82,7 +82,7 @@ using UnityEngine.UI;
      			}
      			if( this.m_M_QuestionButton == null )
      			{
-		    		this.m_M_QuestionButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"MG_Center/GameObject/M_Question");
+		    		this.m_M_QuestionButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"MG_Center/GameObject/Center/M_Question");
      			}
      			return this.m_M_QuestionButton;
      		}
@@ -99,7 +99,7 @@ using UnityEngine.UI;
      			}
      			if( this.m_M_QuestionImage == null )
      			{
-		    		this.m_M_QuestionImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"MG_Center/GameObject/M_Question");
+		    		this.m_M_QuestionImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"MG_Center/GameObject/Center/M_Question");
      			}
      			return this.m_M_QuestionImage;
      		}
@@ -116,7 +116,7 @@ using UnityEngine.UI;
      			}
      			if( this.m_M_ScoreCountButton == null )
      			{
-		    		this.m_M_ScoreCountButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"MG_Center/GameObject/M_ScoreCount");
+		    		this.m_M_ScoreCountButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"MG_Center/GameObject/Center/M_ScoreCount");
      			}
      			return this.m_M_ScoreCountButton;
      		}
@@ -133,9 +133,43 @@ using UnityEngine.UI;
      			}
      			if( this.m_M_ScoreCountImage == null )
      			{
-		    		this.m_M_ScoreCountImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"MG_Center/GameObject/M_ScoreCount");
+		    		this.m_M_ScoreCountImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"MG_Center/GameObject/Center/M_ScoreCount");
      			}
      			return this.m_M_ScoreCountImage;
+     		}
+     	}
+
+		public UnityEngine.UI.Button M_AdminButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_AdminButton == null )
+     			{
+		    		this.m_M_AdminButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"MG_Center/GameObject/Manager/M_Admin");
+     			}
+     			return this.m_M_AdminButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image M_AdminImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_AdminImage == null )
+     			{
+		    		this.m_M_AdminImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"MG_Center/GameObject/Manager/M_Admin");
+     			}
+     			return this.m_M_AdminImage;
      		}
      	}
 
@@ -149,6 +183,8 @@ using UnityEngine.UI;
 			this.m_M_QuestionImage = null;
 			this.m_M_ScoreCountButton = null;
 			this.m_M_ScoreCountImage = null;
+			this.m_M_AdminButton = null;
+			this.m_M_AdminImage = null;
 			this.uiTransform = null;
 		}
 
@@ -160,5 +196,7 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_M_QuestionImage = null;
 		private UnityEngine.UI.Button m_M_ScoreCountButton = null;
 		private UnityEngine.UI.Image m_M_ScoreCountImage = null;
+		private UnityEngine.UI.Button m_M_AdminButton = null;
+		private UnityEngine.UI.Image m_M_AdminImage = null;
 		public Transform uiTransform = null;
 	}

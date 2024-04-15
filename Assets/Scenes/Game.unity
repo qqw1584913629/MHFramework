@@ -193,6 +193,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayMode: 0
+  currentLoginAccountInfo:
+    account: 
+    password: 
+    role: 0
 --- !u!4 &805868115
 Transform:
   m_ObjectHideFlags: 0
