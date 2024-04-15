@@ -13,4 +13,5 @@ public static class WindowID
 	public const string WindowID_SingleQuestion = "Assets/Bundles/UI/DlgSingleQuestion.prefab";
 	public const string WindowID_ScoreCount = "Assets/Bundles/UI/DlgScoreCount.prefab";
 	public const string WindowID_TrueOrFalse = "Assets/Bundles/UI/DlgTrueOrFalse.prefab";
+	public const string WindowID_DoubleQuestion = "Assets/Bundles/UI/DlgDoubleQuestion.prefab";
 }

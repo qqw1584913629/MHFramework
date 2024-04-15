@@ -25,8 +25,8 @@ public class DlgSelectQuestionSystem : BasePanel
 
 	private void OnDoubleClickHandler()
 	{
+		UIManager.Instance.ShowWindow(WindowID.WindowID_DoubleQuestion);
 		UIManager.Instance.HideWindow(WindowID.WindowID_SelectQuestion);
-		UIManager.Instance.HideWindow(WindowID.WindowID_Main);
 	}
 
 	private void OnTrueOrFalseClickHandler()

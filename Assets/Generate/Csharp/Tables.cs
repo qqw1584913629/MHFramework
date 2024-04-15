@@ -14,26 +14,31 @@ using SimpleJSON;
 
 namespace cfg
 {
-    public partial class Tables
-    {
-        public item.TbItem TbItem {get; set; }
-        public single.TbSingle TbSingle {get; set; }
-        public trueOrFalse.TbTrueOrFalse TbTrueOrFalse {get; set; }
+public partial class Tables
+{
+    public item.TbItem TbItem {get; set;}
+    public single.TbSingle TbSingle {get; set;}
+    public trueOrFalse.TbTrueOrFalse TbTrueOrFalse {get; set; }
+    public doubleQuestion.TbDouble TbDouble {get; set; }
 
-        public static async UniTask<Tables> CreateAsync(Func<string, UniTask<JSONNode>> loader)
-        {
-            Tables tables = new Tables();
-            tables.TbItem = new item.TbItem(await loader("item_tbitem"));     
-            tables.TbSingle = new single.TbSingle(await loader("single_tbsingle"));
-            tables.TbTrueOrFalse = new trueOrFalse.TbTrueOrFalse(await loader("trueorfalse_tbtrueorfalse"));
-            tables.ResolveRef();
-            return tables;
-        }
-        private void ResolveRef()
-        {
-            TbItem.ResolveRef(this);
-            TbSingle.ResolveRef(this);
-            TbTrueOrFalse.ResolveRef(this);
-        }
+    public static async UniTask<Tables> CreateAsync(Func<string, UniTask<JSONNode>> loader)
+    {
+        Tables tables = new Tables();
+        tables.TbItem = new item.TbItem(await loader("item_tbitem"));     
+        tables.TbSingle = new single.TbSingle(await loader("single_tbsingle"));
+        tables.TbTrueOrFalse = new trueOrFalse.TbTrueOrFalse(await loader("trueorfalse_tbtrueorfalse"));
+        tables.TbDouble = new doubleQuestion.TbDouble(await loader("doublequestion_tbdouble"));
+        tables.ResolveRef();
+        return tables;
     }
+    
+    private void ResolveRef()
+    {
+        TbItem.ResolveRef(this);
+        TbSingle.ResolveRef(this);
+        TbTrueOrFalse.ResolveRef(this);
+        TbDouble.ResolveRef(this);
+    }
+}
+
 }

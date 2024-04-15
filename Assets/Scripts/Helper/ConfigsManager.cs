@@ -12,6 +12,7 @@
 
 #endregion
 
+using System.Linq;
 using cfg;
 using Cysharp.Threading.Tasks;
 using Model;
@@ -27,6 +28,26 @@ public static class ConfigsManager
         tables = await cfg.Tables.CreateAsync(Loader);
         LoadSingleQuestion();
         LoadTrueOrFalseQuestion();
+        LoadDoubleQuestion();
+    }
+
+    private static void LoadDoubleQuestion()
+    {
+        var doubleInfoComponent = JsonUtility.FromJson<DoubleInfoComponent>(PlayerPrefs.GetString(nameof(DoubleInfoComponent), Default()));
+        doubleInfoComponent.lists.Clear();
+        foreach (DoubleQuestion doubleQuestion in tables.TbDouble.DataList)
+        {
+            DoubleInfo doubleInfo = new DoubleInfo();
+            doubleInfo.id = doubleQuestion.Id;
+            doubleInfo.question = doubleQuestion.Question;
+            doubleInfo.ans = doubleQuestion.Ans.Split("|").ToList();
+            doubleInfo.ans1 = doubleQuestion.Ans1;
+            doubleInfo.ans2 = doubleQuestion.Ans2;
+            doubleInfo.ans3 = doubleQuestion.Ans3;
+            doubleInfo.ans4 = doubleQuestion.Ans4;
+            doubleInfoComponent.lists.Add(doubleInfo);
+        }
+        SaveDataManager.SaveDataByPlayerPrefs(nameof(DoubleInfoComponent), doubleInfoComponent);
     }
 
     private static void LoadTrueOrFalseQuestion()
