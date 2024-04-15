@@ -25,6 +25,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     protected override async UniTask Awake()
     {
+        // PlayerPrefs.DeleteAll();
         base.Awake();
         //初始化yoo
         await InitializeYooAsset();
