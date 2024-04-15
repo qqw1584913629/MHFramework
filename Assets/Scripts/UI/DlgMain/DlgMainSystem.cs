@@ -22,16 +22,19 @@ public class DlgMainSystem : BasePanel
 	private void OnScoreCountClickHandler()
 	{
 		UIManager.Instance.ShowWindow(WindowID.WindowID_ScoreCount);
+		UIManager.Instance.HideWindow(WindowID.WindowID_Main);
 	}
 
 	private void OnStudioClickHandler()
 	{
-		
+		// UIManager.Instance.ShowWindow(WindowID.WindowID_SelectQuestion);
+		// UIManager.Instance.HideWindow(WindowID.WindowID_Main);
 	}
 
 	private void OnQuestionClickHandler()
 	{
 		UIManager.Instance.ShowWindow(WindowID.WindowID_SelectQuestion);
+		UIManager.Instance.HideWindow(WindowID.WindowID_Main);
 	}
 
 	public override void ShowWindow(string path)

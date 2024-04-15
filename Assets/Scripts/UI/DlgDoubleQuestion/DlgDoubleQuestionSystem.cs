@@ -22,6 +22,7 @@ public class DlgDoubleQuestionSystem : BasePanel
 			self = gameObject.AddComponent<DlgDoubleQuestionComponent>();
 		self.uiTransform = transform;
 		windowType = UIWindowType.Normal;
+		level = PlayerPrefs.GetInt(PreName.DoubleQuestion.ToString(), 1);
 	}
 	private void Start()
 	{
@@ -127,6 +128,7 @@ public class DlgDoubleQuestionSystem : BasePanel
 	public override void HideWindow()
 	{
 		base.HideWindow();
+		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
 	}
 	public override void CloseWindow()
 	{

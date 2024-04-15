@@ -105,6 +105,8 @@ public class DlgTrueOrFalseSystem : BasePanel
 	public override void HideWindow()
 	{
 		base.HideWindow();
+		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
+
 	}
 	public override void CloseWindow()
 	{
