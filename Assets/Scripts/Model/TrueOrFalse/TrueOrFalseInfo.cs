@@ -10,5 +10,6 @@ namespace Model
         public string ans;
         public string ans1;
         public string ans2;
+        public State state;
     }
 }

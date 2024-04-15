@@ -16,4 +16,5 @@ public static class WindowID
 	public const string WindowID_DoubleQuestion = "Assets/Bundles/UI/DlgDoubleQuestion.prefab";
 	public const string WindowID_SingleManager = "Assets/Bundles/UI/DlgSingleManager.prefab";
 	public const string WindowID_SelectManager = "Assets/Bundles/UI/DlgSelectManager.prefab";
+	public const string WindowID_AddSingle = "Assets/Bundles/UI/DlgAddSingle.prefab";
 }

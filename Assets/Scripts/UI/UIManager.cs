@@ -118,7 +118,7 @@ public class UIManager
         //检查是否已经打开
         if (openWindowDict.TryGetValue(path, out BasePanel basePanel))
         {
-            Debug.LogError("界面已经打开！！！");
+            Debug.LogWarning("界面已经打开！！！");
             return;
         }
         //检查缓存

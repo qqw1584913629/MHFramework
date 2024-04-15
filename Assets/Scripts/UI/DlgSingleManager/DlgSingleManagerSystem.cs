@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Model;
@@ -27,7 +28,7 @@ public class DlgSingleManagerSystem : BasePanel
 
 	private void AddButtonClickHandler()
 	{
-		// UIManager.Instance.ShowWindow();
+		UIManager.Instance.ShowWindow(WindowID.WindowID_AddSingle);
 	}
 
 	public override void ShowWindow(string path)
@@ -43,7 +44,22 @@ public class DlgSingleManagerSystem : BasePanel
 		Refresh();
 	}
 
-	private void Refresh()
+	public void Reset()
+	{
+		for (int i = 0; i < self.MG_ContentRectTransform.childCount; i++)
+			Destroy(self.MG_ContentRectTransform.GetChild(i).gameObject);
+		var singleInfoComponent = JsonUtility.FromJson<SingleInfoComponent>(SaveDataManager.LoadDataByPlayerPrefs(nameof(SingleInfoComponent)));
+		singleInfos = singleInfoComponent.lists;
+		foreach (var single in singleInfos)
+		{
+			var loadGameObjectSync = ResourceHelper.LoadGameObjectSync<GameObject>(nameof(Item_Single));
+			var go = Instantiate(loadGameObjectSync, self.MG_ContentRectTransform);
+			var itemSingle = go.GetComponent<Item_Single>();
+			itemSingle.SetInfo(single);
+		}
+	}
+
+	public void Refresh()
 	{
 		for (int i = 0; i < self.MG_ContentRectTransform.childCount; i++)
 			Destroy(self.MG_ContentRectTransform.GetChild(i).gameObject);

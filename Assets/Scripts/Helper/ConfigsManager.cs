@@ -34,7 +34,8 @@ public static class ConfigsManager
     private static void LoadDoubleQuestion()
     {
         var doubleInfoComponent = JsonUtility.FromJson<DoubleInfoComponent>(PlayerPrefs.GetString(nameof(DoubleInfoComponent), Default()));
-        doubleInfoComponent.lists.Clear();
+        if (doubleInfoComponent.lists.Count > 0)
+            return;
         foreach (DoubleQuestion doubleQuestion in tables.TbDouble.DataList)
         {
             DoubleInfo doubleInfo = new DoubleInfo();
@@ -53,7 +54,8 @@ public static class ConfigsManager
     private static void LoadTrueOrFalseQuestion()
     {
         var trueOrFalseInfoComponent = JsonUtility.FromJson<TrueOrFalseInfoComponent>(PlayerPrefs.GetString(nameof(TrueOrFalseInfoComponent), Default2()));
-        trueOrFalseInfoComponent.lists.Clear();
+        if (trueOrFalseInfoComponent.lists.Count > 0)
+            return;
         foreach (TrueOrFalse trueOrFalse in tables.TbTrueOrFalse.DataList)
         {
             TrueOrFalseInfo trueOrFalseInfo = new TrueOrFalseInfo();
@@ -70,7 +72,8 @@ public static class ConfigsManager
     public static void LoadSingleQuestion()
     {
         var singleInfoComponent = JsonUtility.FromJson<SingleInfoComponent>(PlayerPrefs.GetString(nameof(SingleInfoComponent), Default()));
-        singleInfoComponent.lists.Clear();
+        if (singleInfoComponent.lists.Count > 0)
+            return;
         foreach (Single single in tables.TbSingle.DataList)
         {
             SingleInfo singleInfo = new SingleInfo();

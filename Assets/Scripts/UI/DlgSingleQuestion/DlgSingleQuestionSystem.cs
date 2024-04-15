@@ -100,6 +100,12 @@ public class DlgSingleQuestionSystem : BasePanel
 			return;
 		}
 		var config = singleInfoComponent.lists[level];
+		if (config.state == State.Remove)
+		{
+			level++;
+			Refresh();
+			return;
+		}
 		ans = config.ans;
 		ansList.Add(config.ans1);
 		ansList.Add(config.ans2);
