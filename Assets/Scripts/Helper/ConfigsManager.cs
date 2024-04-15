@@ -29,12 +29,24 @@ public static class ConfigsManager
         LoadTrueOrFalseQuestion();
     }
 
-    private static async UniTask LoadTrueOrFalseQuestion()
+    private static void LoadTrueOrFalseQuestion()
     {
-        
+        var trueOrFalseInfoComponent = JsonUtility.FromJson<TrueOrFalseInfoComponent>(PlayerPrefs.GetString(nameof(TrueOrFalseInfoComponent), Default2()));
+        trueOrFalseInfoComponent.lists.Clear();
+        foreach (TrueOrFalse trueOrFalse in tables.TbTrueOrFalse.DataList)
+        {
+            TrueOrFalseInfo trueOrFalseInfo = new TrueOrFalseInfo();
+            trueOrFalseInfo.id = trueOrFalse.Id;
+            trueOrFalseInfo.question = trueOrFalse.Question;
+            trueOrFalseInfo.ans = trueOrFalse.Ans;
+            trueOrFalseInfo.ans1 = trueOrFalse.Ans1;
+            trueOrFalseInfo.ans2 = trueOrFalse.Ans2;
+            trueOrFalseInfoComponent.lists.Add(trueOrFalseInfo);
+        }
+        SaveDataManager.SaveDataByPlayerPrefs(nameof(TrueOrFalseInfoComponent), trueOrFalseInfoComponent);
     }
 
-    public static async UniTask LoadSingleQuestion()
+    public static void LoadSingleQuestion()
     {
         var singleInfoComponent = JsonUtility.FromJson<SingleInfoComponent>(PlayerPrefs.GetString(nameof(SingleInfoComponent), Default()));
         singleInfoComponent.lists.Clear();
@@ -57,7 +69,10 @@ public static class ConfigsManager
     {
         return JsonUtility.ToJson(new SingleInfoComponent());
     }
-
+    private static string Default2()
+    {
+        return JsonUtility.ToJson(new TrueOrFalseInfoComponent());
+    }
     private static async UniTask<JSONNode> Loader(string fileName)
     {
         var content = await ResourceHelper.LoadRawFileASync(fileName);

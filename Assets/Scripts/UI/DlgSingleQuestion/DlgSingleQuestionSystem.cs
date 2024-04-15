@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Helper;
 using Model;
 using TMPro;
@@ -55,7 +56,6 @@ public class DlgSingleQuestionSystem : BasePanel
 		{
 			//答案正确
 			text.color = Color.green;
-
 			//下一题
 			level++;
 			PlayerPrefs.SetInt(PreName.SingleQuestion.ToString(), level);
@@ -82,6 +82,11 @@ public class DlgSingleQuestionSystem : BasePanel
 	}
 	private void Refresh()
 	{
+		self.M_Ans1TextTextMeshProUGUI.color = Color.white;
+		self.M_Ans2TextTextMeshProUGUI.color = Color.white;
+		self.M_Ans3TextTextMeshProUGUI.color = Color.white;
+		self.M_Ans4TextTextMeshProUGUI.color = Color.white;
+
 		ansList.Clear();
 		var singleInfoComponent = JsonUtility.FromJson<SingleInfoComponent>(SaveDataManager.LoadDataByPlayerPrefs(nameof(SingleInfoComponent)));
 		if (level >= singleInfoComponent.lists.Count)
@@ -110,6 +115,8 @@ public class DlgSingleQuestionSystem : BasePanel
 	public override void ShowWindow(string path)
 	{
 		base.ShowWindow(path);
+		self.MG_CenterRectTransform.localScale = Vector3.zero;
+		self.MG_CenterRectTransform.DOScale(1, .15f);
 		cur_Score = 0;
 		Refresh();
 	}

@@ -25,7 +25,7 @@ namespace cfg
             Tables tables = new Tables();
             tables.TbItem = new item.TbItem(await loader("item_tbitem"));     
             tables.TbSingle = new single.TbSingle(await loader("single_tbsingle"));
-            tables.TbTrueOrFalse = new trueOrFalse.TbTrueOrFalse(await loader("trueorfalse_tbtrueOrFalse"));
+            tables.TbTrueOrFalse = new trueOrFalse.TbTrueOrFalse(await loader("trueorfalse_tbtrueorfalse"));
             tables.ResolveRef();
             return tables;
         }

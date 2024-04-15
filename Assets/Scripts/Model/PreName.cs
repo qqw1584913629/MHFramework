@@ -4,6 +4,7 @@ namespace Model
     {
         AccountInfo,
         SingleQuestion,
+        TrueOrFalse,
         Score,
     }
 }
