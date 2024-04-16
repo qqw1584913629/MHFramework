@@ -30,7 +30,7 @@ public class DlgSelectManagerSystem : BasePanel
 
 	private void OnTrueOrFalseClickHandler()
 	{
-		// UIManager.Instance.ShowWindow(WindowID.WindowID_TrueOrFalse);
+		UIManager.Instance.ShowWindow(WindowID.WindowID_TrueOrFalseManager);
 		UIManager.Instance.HideWindow(WindowID.WindowID_SelectManager);
 	}
 
