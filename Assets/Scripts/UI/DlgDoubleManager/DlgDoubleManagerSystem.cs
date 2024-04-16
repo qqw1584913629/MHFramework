@@ -28,7 +28,7 @@ public class DlgDoubleManagerSystem : BasePanel
 
 	private void AddButtonClickHandler()
 	{
-		UIManager.Instance.ShowWindow(WindowID.WindowID_AddSingle);
+		UIManager.Instance.ShowWindow(WindowID.WindowID_AddDouble);
 	}
 
 	private void Search()

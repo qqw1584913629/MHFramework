@@ -1031,7 +1031,7 @@ GameObject:
   - component: {fileID: 3463032803164154113}
   - component: {fileID: 4597997969087163825}
   m_Layer: 5
-  m_Name: DlgAddSingle
+  m_Name: DlgAddDouble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
