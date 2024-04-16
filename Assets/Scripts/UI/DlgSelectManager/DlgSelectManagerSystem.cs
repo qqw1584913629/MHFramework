@@ -24,7 +24,7 @@ public class DlgSelectManagerSystem : BasePanel
 	}
 	private void OnDoubleClickHandler()
 	{
-		UIManager.Instance.ShowWindow(WindowID.WindowID_SingleManager);
+		UIManager.Instance.ShowWindow(WindowID.WindowID_DoubleManager);
 		UIManager.Instance.HideWindow(WindowID.WindowID_SelectManager);
 	}
 

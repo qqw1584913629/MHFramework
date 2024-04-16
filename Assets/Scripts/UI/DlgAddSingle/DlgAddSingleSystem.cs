@@ -68,7 +68,7 @@ public class DlgAddSingleSystem : BasePanel
 	public override void HideWindow()
 	{
 		base.HideWindow();
-		UIManager.Instance.GetUILogic<DlgSingleManagerSystem>(WindowID.WindowID_SingleManager).Reset();
+		UIManager.Instance.GetUILogic<DlgDoubleManagerSystem>(WindowID.WindowID_DoubleManager).Reset();
 	}
 	public override void CloseWindow()
 	{
