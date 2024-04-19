@@ -30,6 +30,12 @@ public class DlgAddTrueOrFalseSystem : BasePanel
 			TipsHelper.ShowTipsInfo("有输入框未输入内容");
 			return;
 		}
+
+		if (!self.M_TrueAnsTMP_InputField.text.Equals("√") && !self.M_TrueAnsTMP_InputField.text.Equals("×"))
+		{
+			TipsHelper.ShowTipsInfo("正确答案格式错误");
+			return;
+		}
 		var trueOrFalseInfoComponent = JsonUtility.FromJson<TrueOrFalseInfoComponent>(SaveDataManager.LoadDataByPlayerPrefs(nameof(TrueOrFalseInfoComponent)));
 		TrueOrFalseInfo trueOrFalse = new TrueOrFalseInfo();
 		trueOrFalse.id = trueOrFalseInfoComponent.lists.Count + 1;

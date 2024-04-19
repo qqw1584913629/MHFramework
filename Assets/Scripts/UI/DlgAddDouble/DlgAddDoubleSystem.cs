@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Linq;
 using Helper;
 using Model;
@@ -34,19 +35,33 @@ public class DlgAddDoubleSystem : BasePanel
 			TipsHelper.ShowTipsInfo("有输入框未输入内容");
 			return;
 		}
-		var doubleInfoComponent = JsonUtility.FromJson<DoubleInfoComponent>(SaveDataManager.LoadDataByPlayerPrefs(nameof(DoubleInfoComponent)));
-		DoubleInfo doubleInfo = new DoubleInfo();
-		doubleInfo.id = doubleInfoComponent.lists.Count + 1;
-		doubleInfo.question = self.M_QuestionTMP_InputField.text;
-		doubleInfo.ans = self.M_TrueAnsTMP_InputField.text.Split("|").ToList();
-		doubleInfo.ans1 = self.M_Ans1TMP_InputField.text;
-		doubleInfo.ans2 = self.M_Ans2TMP_InputField.text;
-		doubleInfo.ans3 = self.M_Ans3TMP_InputField.text;
-		doubleInfo.ans4 = self.M_Ans4TMP_InputField.text;
-		doubleInfo.state = State.None;
-		doubleInfoComponent.lists.Add(doubleInfo);
-		SaveDataManager.SaveDataByPlayerPrefs(nameof(DoubleInfoComponent), doubleInfoComponent);
-		Refresh();
+		List<string> tmps = new List<string>();
+		tmps.Add(self.M_Ans1TMP_InputField.text);
+		tmps.Add(self.M_Ans2TMP_InputField.text);
+		tmps.Add(self.M_Ans3TMP_InputField.text);
+		tmps.Add(self.M_Ans4TMP_InputField.text);
+		var doubleInfoAns = self.M_TrueAnsTMP_InputField.text.Split("|").ToList();
+		if (tmps.Contains(doubleInfoAns[0]) && tmps.Contains(doubleInfoAns[1]))
+		{
+			var doubleInfoComponent = JsonUtility.FromJson<DoubleInfoComponent>(SaveDataManager.LoadDataByPlayerPrefs(nameof(DoubleInfoComponent)));
+			DoubleInfo doubleInfo = new DoubleInfo();
+			doubleInfo.id = doubleInfoComponent.lists.Count + 1;
+			doubleInfo.question = self.M_QuestionTMP_InputField.text;
+			doubleInfo.ans = doubleInfoAns;
+			doubleInfo.ans1 = self.M_Ans1TMP_InputField.text;
+			doubleInfo.ans2 = self.M_Ans2TMP_InputField.text;
+			doubleInfo.ans3 = self.M_Ans3TMP_InputField.text;
+			doubleInfo.ans4 = self.M_Ans4TMP_InputField.text;
+			doubleInfo.state = State.None;
+			doubleInfoComponent.lists.Add(doubleInfo);
+			SaveDataManager.SaveDataByPlayerPrefs(nameof(DoubleInfoComponent), doubleInfoComponent);
+			Refresh();
+		}
+		else
+		{
+			TipsHelper.ShowTipsInfo("答案未包含正确答案在内");
+			return;
+		}
 	}
 	private void Refresh()
 	{

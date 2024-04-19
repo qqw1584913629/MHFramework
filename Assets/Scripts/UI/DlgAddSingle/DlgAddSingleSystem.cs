@@ -34,6 +34,14 @@ public class DlgAddSingleSystem : BasePanel
 			TipsHelper.ShowTipsInfo("有输入框未输入内容");
 			return;
 		}
+		if (!self.M_Ans1TMP_InputField.text.Equals(self.M_TrueAnsTMP_InputField.text) && 
+		    !self.M_Ans2TMP_InputField.text.Equals(self.M_TrueAnsTMP_InputField.text) &&
+		    !self.M_Ans3TMP_InputField.text.Equals(self.M_TrueAnsTMP_InputField.text) &&
+		    !self.M_Ans4TMP_InputField.text.Equals(self.M_TrueAnsTMP_InputField.text))
+		{
+			TipsHelper.ShowTipsInfo("答案未包含正确答案在内");
+			return;
+		}
 		var singleInfoComponent = JsonUtility.FromJson<SingleInfoComponent>(SaveDataManager.LoadDataByPlayerPrefs(nameof(SingleInfoComponent)));
 		SingleInfo singleInfo = new SingleInfo();
 		singleInfo.id = singleInfoComponent.lists.Count + 1;

@@ -17,7 +17,7 @@ namespace Mono
             click.AddListener(() =>
             {
                 TrueOrFalseHelper.Remove(_config);
-                UIManager.Instance.GetUILogic<DlgSingleManagerSystem>(WindowID.WindowID_SingleManager).Reset();
+                UIManager.Instance.GetUILogic<DlgTrueOrFalseManagerSystem>(WindowID.WindowID_TrueOrFalseManager).Reset();
             });
         }
 
