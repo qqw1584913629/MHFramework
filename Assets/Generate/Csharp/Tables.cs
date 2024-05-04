@@ -16,10 +16,10 @@ namespace cfg
 {
 public partial class Tables
 {
-    public item.TbItem TbItem {get; set;}
-    public single.TbSingle TbSingle {get; set;}
-    public trueOrFalse.TbTrueOrFalse TbTrueOrFalse {get; set; }
-    public doubleQuestion.TbDouble TbDouble {get; set; }
+    public item.TbItem TbItem {get; set; }
+    public single.TbSingle TbSingle {get;  set; }
+    public trueOrFalse.TbTrueOrFalse TbTrueOrFalse {get;  set; }
+    public doubleQuestion.TbDouble TbDouble {get;  set; }
 
     public static async UniTask<Tables> CreateAsync(Func<string, UniTask<JSONNode>> loader)
     {
@@ -31,7 +31,6 @@ public partial class Tables
         tables.ResolveRef();
         return tables;
     }
-    
     private void ResolveRef()
     {
         TbItem.ResolveRef(this);

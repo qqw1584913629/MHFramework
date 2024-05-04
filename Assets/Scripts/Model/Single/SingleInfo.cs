@@ -7,6 +7,11 @@ namespace Model
         None,
         Remove
     }
+    public enum QuestionState
+    {
+        None,
+        Finish
+    }
     [Serializable]
     public class SingleInfo
     {
@@ -18,5 +23,6 @@ namespace Model
         public string ans3;
         public string ans4;
         public State state;
+        public QuestionState questionState;
     }
 }

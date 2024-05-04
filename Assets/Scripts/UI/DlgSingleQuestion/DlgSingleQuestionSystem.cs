@@ -100,7 +100,7 @@ public class DlgSingleQuestionSystem : BasePanel
 			return;
 		}
 		var config = singleInfoComponent.lists[level];
-		if (config.state == State.Remove)
+		if (config.state == State.Remove || config.questionState == QuestionState.Finish)
 		{
 			level++;
 			Refresh();

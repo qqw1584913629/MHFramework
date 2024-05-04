@@ -19,6 +19,13 @@ public class DlgMainSystem : BasePanel
 		self.M_QuestionButton.AddListener(OnQuestionClickHandler);
 		self.M_ScoreCountButton.AddListener(OnScoreCountClickHandler);
 		self.M_AdminButton.AddListener(OnManagerClickHandler);
+		self.M_QuitButton.AddListener(OnQuitAccountClickHandler);
+	}
+
+	private void OnQuitAccountClickHandler()
+	{
+		UIManager.Instance.ShowWindow(WindowID.WindowID_Login);
+		UIManager.Instance.HideWindow(WindowID.WindowID_Main);
 	}
 
 	private void OnManagerClickHandler()

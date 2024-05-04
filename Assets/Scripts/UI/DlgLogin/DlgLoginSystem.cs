@@ -64,7 +64,7 @@ public class DlgLoginSystem : BasePanel
 			accountEntity.role = Role.Manager;
 			GameManager.Instance.currentLoginAccountInfo = accountEntity;
 			UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
-			UIManager.Instance.CloseWindow(WindowID.WindowID_Login);
+			UIManager.Instance.HideWindow(WindowID.WindowID_Login);
 			return;
 		}
 
@@ -92,7 +92,7 @@ public class DlgLoginSystem : BasePanel
 		accountEntity.account = account;
 		accountEntity.role = accountInfo.role;
 		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
-		UIManager.Instance.CloseWindow(WindowID.WindowID_Login);
+		UIManager.Instance.HideWindow(WindowID.WindowID_Login);
 		GameManager.Instance.currentLoginAccountInfo = accountEntity;
 	}
 

@@ -102,6 +102,12 @@ public class DlgDoubleQuestionSystem : BasePanel
 			return;
 		}
 		var config = doubleInfoComponent.lists[level];
+		if (config.state == State.Remove || config.questionState == QuestionState.Finish)
+		{
+			level++;
+			Refresh();
+			return;
+		}
 		ans = config.ans;
 		ansList.Add(config.ans1);
 		ansList.Add(config.ans2);

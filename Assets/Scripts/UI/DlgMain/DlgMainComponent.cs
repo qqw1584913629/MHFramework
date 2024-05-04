@@ -173,6 +173,40 @@ using UnityEngine.UI;
      		}
      	}
 
+		public UnityEngine.UI.Button M_QuitButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_QuitButton == null )
+     			{
+		    		this.m_M_QuitButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"MG_Center/GameObject/Manager/M_Quit");
+     			}
+     			return this.m_M_QuitButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image M_QuitImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_QuitImage == null )
+     			{
+		    		this.m_M_QuitImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"MG_Center/GameObject/Manager/M_Quit");
+     			}
+     			return this.m_M_QuitImage;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_MG_MaskRectTransform = null;
@@ -185,6 +219,8 @@ using UnityEngine.UI;
 			this.m_M_ScoreCountImage = null;
 			this.m_M_AdminButton = null;
 			this.m_M_AdminImage = null;
+			this.m_M_QuitButton = null;
+			this.m_M_QuitImage = null;
 			this.uiTransform = null;
 		}
 
@@ -198,5 +234,7 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_M_ScoreCountImage = null;
 		private UnityEngine.UI.Button m_M_AdminButton = null;
 		private UnityEngine.UI.Image m_M_AdminImage = null;
+		private UnityEngine.UI.Button m_M_QuitButton = null;
+		private UnityEngine.UI.Image m_M_QuitImage = null;
 		public Transform uiTransform = null;
 	}

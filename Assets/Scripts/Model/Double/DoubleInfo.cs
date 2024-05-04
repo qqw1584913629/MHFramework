@@ -18,5 +18,7 @@ namespace Model
         public string ans3;
         public string ans4;
         public State state;
+        public QuestionState questionState;
+
     }
 }

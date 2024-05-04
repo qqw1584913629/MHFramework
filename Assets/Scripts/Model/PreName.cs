@@ -7,5 +7,6 @@ namespace Model
         DoubleQuestion,
         TrueOrFalse,
         Score,
+        BaseClass,
     }
 }

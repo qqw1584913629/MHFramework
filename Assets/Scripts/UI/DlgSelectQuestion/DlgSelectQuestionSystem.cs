@@ -17,6 +17,7 @@ public class DlgSelectQuestionSystem : BasePanel
 		self.M_CloseButton.AddListener(()=>
 		{
 			UIManager.Instance.HideWindow(WindowID.WindowID_SelectQuestion);
+			UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
 		});
 		self.M_SingleButton.AddListener(OnSingleClickHandler);
 		self.M_TrueOrFalseButton.AddListener(OnTrueOrFalseClickHandler);
@@ -50,7 +51,6 @@ public class DlgSelectQuestionSystem : BasePanel
 	public override void HideWindow()
 	{
 		base.HideWindow();
-		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
 	}
 	public override void CloseWindow()
 	{
