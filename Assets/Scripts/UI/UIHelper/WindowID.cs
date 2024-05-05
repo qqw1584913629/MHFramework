@@ -23,4 +23,5 @@ public static class WindowID
 	public const string WindowID_TrueOrFalseManager = "Assets/Bundles/UI/DlgTrueOrFalseManager.prefab";
 	public const string WindowID_Class = "Assets/Bundles/UI/DlgClass.prefab";
 	public const string WindowID_ClassQuestion = "Assets/Bundles/UI/DlgClassQuestion.prefab";
+	public const string WindowID_UserInfo = "Assets/Bundles/UI/DlgUserInfo.prefab";
 }

@@ -91,7 +91,7 @@ public class DlgLoginSystem : BasePanel
 		}
 		accountEntity.account = account;
 		accountEntity.role = accountInfo.role;
-		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
+		UIManager.Instance.ShowWindow(WindowID.WindowID_Class);
 		UIManager.Instance.HideWindow(WindowID.WindowID_Login);
 		GameManager.Instance.currentLoginAccountInfo = accountEntity;
 	}

@@ -13,8 +13,18 @@ public class DlgClassSystem : BasePanel
 	}
 	private void Start()
 	{
-		
+		self.M_ActButton.AddListener(ShowMainUI);
+		self.M_BaseButton.AddListener(ShowMainUI);
+		self.M_DefenseButton.AddListener(ShowMainUI);
+		self.M_AttackButton.AddListener(ShowMainUI);
 	}
+
+	private void ShowMainUI()
+	{
+		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
+		UIManager.Instance.HideWindow(WindowID.WindowID_Class);
+	}
+
 	public override void ShowWindow(string path)
 	{
 		base.ShowWindow(path);
