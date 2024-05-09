@@ -262,20 +262,25 @@ public class UIManager
     }
    public Transform GetTargetRoot(UIWindowType type)
    {
-       if (type == UIWindowType.Normal)
-           return NormalRoot;
-       else if (type == UIWindowType.Fixed)
-           return FixedRoot;
-       else if (type == UIWindowType.PopUp)
-           return PopUpRoot;
-       else if (type == UIWindowType.Other)
-           return OtherRoot;
-       Debug.LogError("uiroot type is error: " + type.ToString());
-       return null;
+       switch (type)
+       {
+           case UIWindowType.Normal:
+               return NormalRoot;
+           case UIWindowType.Fixed:
+               return FixedRoot;
+           case UIWindowType.PopUp:
+               return PopUpRoot;
+           case UIWindowType.Other:
+               return OtherRoot;
+           default:
+               Debug.LogError("uiroot type is error: " + type.ToString());
+               return null;
+       }
    }
    public void SetRoot(BasePanel obj, Transform rootTransform)
    {
-       obj.transform.SetParent(rootTransform);
-       obj.transform.localScale = Vector3.one;
+       Transform transform;
+       (transform = obj.transform).SetParent(rootTransform);
+       transform.localScale = Vector3.one;
    }
 }
