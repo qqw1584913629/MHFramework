@@ -20,6 +20,40 @@ using UnityEngine.UI;
      		}
      	}
 
+		public UnityEngine.UI.Button M_CloseButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_CloseButton == null )
+     			{
+		    		this.m_M_CloseButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"M_Close");
+     			}
+     			return this.m_M_CloseButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image M_CloseImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_CloseImage == null )
+     			{
+		    		this.m_M_CloseImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"M_Close");
+     			}
+     			return this.m_M_CloseImage;
+     		}
+     	}
+
 		public TMPro.TMP_InputField M_AccountTMP_InputField
      	{
      		get
@@ -125,6 +159,8 @@ using UnityEngine.UI;
 		public void DestroyWidget()
 		{
 			this.m_MG_MaskRectTransform = null;
+			this.m_M_CloseButton = null;
+			this.m_M_CloseImage = null;
 			this.m_M_AccountTMP_InputField = null;
 			this.m_M_AccountImage = null;
 			this.m_M_PasswordTMP_InputField = null;
@@ -135,6 +171,8 @@ using UnityEngine.UI;
 		}
 
 		private UnityEngine.RectTransform m_MG_MaskRectTransform = null;
+		private UnityEngine.UI.Button m_M_CloseButton = null;
+		private UnityEngine.UI.Image m_M_CloseImage = null;
 		private TMPro.TMP_InputField m_M_AccountTMP_InputField = null;
 		private UnityEngine.UI.Image m_M_AccountImage = null;
 		private TMPro.TMP_InputField m_M_PasswordTMP_InputField = null;

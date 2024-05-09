@@ -14,6 +14,10 @@ public class DlgLoginSystem : BasePanel
 	private void Start()
 	{
 		self.M_LoginButtonButton.AddListener(OnLoginButtonClickHandler);
+		self.M_CloseButton.AddListener(() =>
+		{
+			UIManager.Instance.CloseWindow(WindowID.WindowID_Login);
+		});
 	}
 
 	private void OnLoginButtonClickHandler()

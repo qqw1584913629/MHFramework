@@ -91,7 +91,7 @@ public class UIManager
         }
     }
 
-    public BasePanel GetUILogic(string path)
+    public T GetUILogic<T>(string path) where T : BasePanel
     {
         //检查缓存
         if (!windowConfigDict.TryGetValue(path, out string name))
@@ -105,7 +105,7 @@ public class UIManager
             Debug.LogError("界面还未打开！！！");
             return null;
         }
-        return basePanel;
+        return basePanel as T;
     }
    public void ShowWindow(string path)
     {
@@ -125,14 +125,13 @@ public class UIManager
         if (!prefabWindowDict.TryGetValue(path, out GameObject go))
         {
             var obj = ResourceHelper.LoadGameObjectSync<GameObject>(path);
-            //如果界面没有在缓存中则实例化一个
-            prefabWindowDict.Add(path, obj);
             //打开界面
             var panelObject = GameObject.Instantiate(obj, UIRoot, false);
             if (panelObject.GetComponent(Type.GetType($"{obj.name}System")) == null)
                 panelObject.AddComponent(Type.GetType($"{obj.name}System"));
                     
-
+            //如果界面没有在缓存中则实例化一个
+            prefabWindowDict.Add(path, panelObject);
             basePanel = panelObject.GetComponent<BasePanel>();
             SetRoot(basePanel, GetTargetRoot(basePanel.windowType));
             openWindowDict.Add(path, basePanel);
@@ -148,10 +147,7 @@ public class UIManager
             return;
         }
         //如果有
-        var panelObject1 = GameObject.Instantiate(go, UIRoot, false);
-        if (panelObject1.GetComponent(Type.GetType($"{go.name}System")) == null)
-            panelObject1.AddComponent(Type.GetType($"{go.name}System"));
-        basePanel = panelObject1.GetComponent<BasePanel>();
+        basePanel = go.GetComponent<BasePanel>();
         openWindowDict.Add(path, basePanel);
         //查看上一个最新打开的UI的
         if (openWindowStack.Count > 0)
@@ -230,6 +226,8 @@ public class UIManager
         basePanel.CloseWindow();
         //从字典中移除
         openWindowDict.Remove(path);
+        prefabWindowDict.Remove(path);
+
         //弹出栈
         openWindowStack.Pop();
         //如果栈不为空，设置可交互
