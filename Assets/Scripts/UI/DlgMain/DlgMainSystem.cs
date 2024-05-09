@@ -21,6 +21,7 @@ public class DlgMainSystem : BasePanel
 		self.M_AdminButton.AddListener(OnManagerClickHandler);
 		self.M_QuitButton.AddListener(OnQuitAccountClickHandler);
 		self.M_UserInfoButton.AddListener(OnUserInfoClickHandler);
+		self.M_StudioButton.AddListener(OnStudioClickHandler);
 	}
 
 	private void OnUserInfoClickHandler()
@@ -49,8 +50,8 @@ public class DlgMainSystem : BasePanel
 
 	private void OnStudioClickHandler()
 	{
-		// UIManager.Instance.ShowWindow(WindowID.WindowID_SelectQuestion);
-		// UIManager.Instance.HideWindow(WindowID.WindowID_Main);
+		UIManager.Instance.ShowWindow(WindowID.WindowID_Studio);
+		UIManager.Instance.HideWindow(WindowID.WindowID_Main);
 	}
 
 	private void OnQuestionClickHandler()

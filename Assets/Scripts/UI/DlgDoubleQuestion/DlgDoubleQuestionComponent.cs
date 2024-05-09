@@ -139,6 +139,23 @@ using UnityEngine.UI;
      		}
      	}
 
+		public TMPro.TextMeshProUGUI M_TimeDownTextMeshProUGUI
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_TimeDownTextMeshProUGUI == null )
+     			{
+		    		this.m_M_TimeDownTextMeshProUGUI = MUIHelepr.FindDeepChild<TMPro.TextMeshProUGUI>(this.uiTransform.gameObject,"MG_Center/M_TimeDown");
+     			}
+     			return this.m_M_TimeDownTextMeshProUGUI;
+     		}
+     	}
+
 		public TMPro.TextMeshProUGUI M_QuestionTextMeshProUGUI
      	{
      		get
@@ -370,6 +387,7 @@ using UnityEngine.UI;
 			this.m_M_NextImage = null;
 			this.m_M_CloseButton = null;
 			this.m_M_CloseImage = null;
+			this.m_M_TimeDownTextMeshProUGUI = null;
 			this.m_M_QuestionTextMeshProUGUI = null;
 			this.m_M_Ans1Button = null;
 			this.m_M_Ans1Image = null;
@@ -394,6 +412,7 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_M_NextImage = null;
 		private UnityEngine.UI.Button m_M_CloseButton = null;
 		private UnityEngine.UI.Image m_M_CloseImage = null;
+		private TMPro.TextMeshProUGUI m_M_TimeDownTextMeshProUGUI = null;
 		private TMPro.TextMeshProUGUI m_M_QuestionTextMeshProUGUI = null;
 		private UnityEngine.UI.Button m_M_Ans1Button = null;
 		private UnityEngine.UI.Image m_M_Ans1Image = null;

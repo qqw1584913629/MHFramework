@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -48,7 +49,19 @@ public class DlgSingleQuestionSystem : BasePanel
 			SubmitAns(self.M_Ans4TextTextMeshProUGUI);
 		});
 	}
-
+	private int timer;
+	private int round;
+	private IEnumerator CO_TimeCount()
+	{
+		while (true)
+		{
+			int minutes = timer / 60; // 获取分钟数
+			int seconds = timer % 60; // 获取余下的秒数
+			self.M_TimeDownTextMeshProUGUI.SetText($"{minutes:D2}:{seconds:D2}");
+			yield return new WaitForSeconds(1f);
+			timer++;
+		}
+	}
 	private void SubmitAns(TextMeshProUGUI text)
 	{
 		var s = text.text.Split(".")[1];
@@ -64,6 +77,12 @@ public class DlgSingleQuestionSystem : BasePanel
 			cur_Score += 5;
 			PlayerPrefs.SetInt(PreName.Score.ToString(), i);
 			Refresh();
+			round++;
+			if (round >= 10)
+			{
+				TipsHelper.ShowTipsInfo($"答题结束，本轮分数为：{cur_Score} 分", timer);
+				UIManager.Instance.HideWindow(WindowID.WindowID_SingleQuestion);
+			}
 		}
 		else
 			text.color = Color.red;
@@ -91,7 +110,7 @@ public class DlgSingleQuestionSystem : BasePanel
 		var singleInfoComponent = JsonUtility.FromJson<SingleInfoComponent>(SaveDataManager.LoadDataByPlayerPrefs(nameof(SingleInfoComponent)));
 		if (level >= singleInfoComponent.lists.Count)
 		{
-			TipsHelper.ShowTipsInfo($"答题结束，本轮分数为：{cur_Score} 分");
+			TipsHelper.ShowTipsInfo($"答题结束，本轮分数为：{cur_Score} 分", timer);
 			self.M_QuestionTextMeshProUGUI.SetText("已完成全部题目");
 			self.M_Ans1Button.SetVisible(false);
 			self.M_Ans2Button.SetVisible(false);
@@ -124,12 +143,16 @@ public class DlgSingleQuestionSystem : BasePanel
 		self.MG_CenterRectTransform.localScale = Vector3.zero;
 		self.MG_CenterRectTransform.DOScale(1, .15f);
 		cur_Score = 0;
+		timer = 0;
+		round = 0;
+		StartCoroutine(CO_TimeCount());
 		Refresh();
 	}
 	public override void HideWindow()
 	{
 		base.HideWindow();
 		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
+		StopAllCoroutines();
 
 	}
 	public override void CloseWindow()

@@ -20,8 +20,15 @@ public class DlgTipsSystem : BasePanel
 		});
 	}
 
-	public void SetContent(string content)
+	public void SetContent(string content, int timer = -1)
 	{
+		if (timer >= 0)
+		{
+			int minutes = timer / 60; // 获取分钟数
+			int seconds = timer % 60; // 获取余下的秒数
+			self.M_ConentTextMeshProUGUI.SetText($"{content}，所使用时间为：{minutes:D2}:{seconds:D2}");
+			return;
+		}
 		self.M_ConentTextMeshProUGUI.SetText(content);
 	}
 	public override void ShowWindow(string path)

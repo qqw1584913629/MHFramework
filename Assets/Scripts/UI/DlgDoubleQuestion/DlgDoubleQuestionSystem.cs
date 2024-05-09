@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Helper;
@@ -48,11 +50,26 @@ public class DlgDoubleQuestionSystem : BasePanel
 		});
 	}
 
+	private int timer;
+	private int round;
+	private IEnumerator CO_TimeCount()
+	{
+		while (true)
+		{
+			int minutes = timer / 60; // 获取分钟数
+			int seconds = timer % 60; // 获取余下的秒数
+			self.M_TimeDownTextMeshProUGUI.SetText($"{minutes:D2}:{seconds:D2}");
+			yield return new WaitForSeconds(1f);
+			timer++;
+		}
+	}
 	private void SubmitAns(TextMeshProUGUI text)
 	{
 		var s = text.text.Split(".")[1];
 		if (ans.Contains(s))
 		{
+			if (text.color == Color.green)
+				return;
 			//答案正确
 			text.color = Color.green;
 			trueAns += 1;
@@ -68,6 +85,12 @@ public class DlgDoubleQuestionSystem : BasePanel
 				Refresh();
 				return;
 			}
+			round++;
+			if (round >= 10)
+			{
+				TipsHelper.ShowTipsInfo($"答题结束，本轮分数为：{cur_Score} 分", timer);
+				UIManager.Instance.HideWindow(WindowID.WindowID_DoubleQuestion);
+			}
 		}
 		else
 			text.color = Color.red;
@@ -79,6 +102,9 @@ public class DlgDoubleQuestionSystem : BasePanel
 		self.MG_CenterRectTransform.localScale = Vector3.zero;
 		self.MG_CenterRectTransform.DOScale(1, .15f);
 		cur_Score = 0;
+		timer = 0;
+		round = 0;
+		StartCoroutine(CO_TimeCount());
 		Refresh();
 	}
 
@@ -93,7 +119,7 @@ public class DlgDoubleQuestionSystem : BasePanel
 		var doubleInfoComponent = JsonUtility.FromJson<DoubleInfoComponent>(SaveDataManager.LoadDataByPlayerPrefs(nameof(DoubleInfoComponent)));
 		if (level >= doubleInfoComponent.lists.Count)
 		{
-			TipsHelper.ShowTipsInfo($"答题结束，本轮分数为：{cur_Score} 分");
+			TipsHelper.ShowTipsInfo($"答题结束，本轮分数为：{cur_Score} 分", timer);
 			self.M_QuestionTextMeshProUGUI.SetText("已完成全部题目");
 			self.M_Ans1Button.SetVisible(false);
 			self.M_Ans2Button.SetVisible(false);
@@ -135,6 +161,7 @@ public class DlgDoubleQuestionSystem : BasePanel
 	{
 		base.HideWindow();
 		UIManager.Instance.ShowWindow(WindowID.WindowID_Main);
+		StopAllCoroutines();
 	}
 	public override void CloseWindow()
 	{
