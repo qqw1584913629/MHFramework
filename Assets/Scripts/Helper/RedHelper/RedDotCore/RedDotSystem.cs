@@ -17,9 +17,9 @@ namespace RedDotTutorial_1
 
         // ---------- 业务红点 ----------
 
-        public const string MailBox = "Root/Mail";
-        public const string MailBox_System = "Root/Mail/System";
-        public const string MailBox_Team = "Root/Mail/Team";
+        public const string Test = "Root/Test";
+        public const string Child1 = "Root/Test/Child1";
+        public const string Child2 = "Root/Test/Child2";
     }
 
     /// <summary>
@@ -51,9 +51,9 @@ namespace RedDotTutorial_1
         {
             E_RedDotDefine.rdRoot,
 
-            E_RedDotDefine.MailBox,
-            E_RedDotDefine.MailBox_System,
-            E_RedDotDefine.MailBox_Team,
+            E_RedDotDefine.Test,
+            E_RedDotDefine.Child1,
+            E_RedDotDefine.Child2,
         };
 
 
@@ -104,6 +104,17 @@ namespace RedDotTutorial_1
 
         #region 外部接口
 
+        public void AddRedDotNodeView(string strNode, GameObject obj)
+        {
+            var redDotItem = obj.GetComponentInChildren<RedDotItem>();
+            if(!redDotItem)return;
+            SetRedDotNodeCallBack(strNode, node =>
+            {
+                redDotItem.SetDotState(node.rdCount > 0, node.rdCount);
+            });
+        }
+        
+        
         /// <summary>
         /// 设置红点数变化的回调
         /// </summary>

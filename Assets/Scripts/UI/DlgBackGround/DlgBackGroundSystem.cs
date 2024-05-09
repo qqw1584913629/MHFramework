@@ -16,6 +16,7 @@ public class DlgBackGroundSystem : BasePanel
 		self.MLoginButton.AddListener(() =>
 		{
 			UIManager.Instance.ShowWindow(WindowID.WindowID_Login);
+			UIManager.Instance.CloseWindow(WindowID.WindowID_BackGround);
 		});
 	}
 	public override void ShowWindow(string path)

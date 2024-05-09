@@ -25,6 +25,8 @@ public class DlgLoginSystem : BasePanel
 		var account = self.M_AccountTMP_InputField.text;
 		var password = self.M_PasswordTMP_InputField.text;
 		Debug.LogWarning($"account=>{account},password=>{password}");
+		UIManager.Instance.ShowWindow(WindowID.WindowID_Red);
+		UIManager.Instance.CloseWindow(WindowID.WindowID_Login);
 	}
 
 	public override void ShowWindow(string path)
