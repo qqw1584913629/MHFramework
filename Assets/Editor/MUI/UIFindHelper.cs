@@ -11,6 +11,7 @@ public class UIFindHelper
     private const string UIWidgetPrefix = "M";
     private const string UIGameObjectPrefix = "MG";
     private const string UIItemPrefix = "Item";
+    private const string UIPrefix = "Dlg";
 
     private static List<string> WidgetInterfaceList = new List<string>()
     {
@@ -40,6 +41,11 @@ public class UIFindHelper
             Debug.LogWarning($"-------- 开始生成滚动列表项: {uiName} 相关代码 -------------");
             SpawnLoopItemCode(gameObject);
             Debug.LogWarning($" 开始生成滚动列表项: {uiName} 完毕！！！");
+            return;
+        }
+        if (!uiName.StartsWith(UIPrefix))
+        {
+            Debug.LogWarning($" 生成代码文件失败，对象不是以Dlg开头");
             return;
         }
         Path2WidgetCachedDict = new Dictionary<string, List<Component>>();
@@ -83,21 +89,8 @@ public class UIFindHelper
         strBuilder.AppendLine("using UnityEngine.UI;");
         strBuilder.AppendLine("namespace MH");
         strBuilder.AppendLine("{");
-        strBuilder.AppendLine($"\t[RequireComponent(typeof(Scroll_{strDlgName}))]");
-        strBuilder.AppendLine("\t[DisallowMultipleComponent]");
-        strBuilder.AppendLine("\t[ExecuteAlways]");
-        strBuilder.AppendFormat("\tpublic  class Scroll_{0}ViewSystem : MonoBehaviour \r\n", strDlgName)
+        strBuilder.AppendFormat("\tpublic static class Scroll_{0}ViewSystem  \r\n", strDlgName)
             .AppendLine("\t{");
-        strBuilder.AppendLine($"\t\tpublic Scroll_{strDlgName} View;");
-        strBuilder.AppendLine($"\t\tprivate void Awake()");
-        strBuilder.AppendLine("\t\t{");
-        strBuilder.AppendLine($"\t\t\tView = gameObject.GetComponent<Scroll_{strDlgName}>();");
-        strBuilder.AppendLine($"\t\t\tView.uiTransform = transform;");
-        strBuilder.AppendLine("\t\t}");
-        strBuilder.AppendFormat("\t\tprivate void OnDestroy()\r\n");
-        strBuilder.AppendLine("\t\t{");
-        strBuilder.AppendFormat("\t\t\tView.DestroyWidget();\r\n");
-        strBuilder.AppendLine("\t\t}\n");
         strBuilder.AppendLine("\t}");
         strBuilder.AppendLine("}");
         

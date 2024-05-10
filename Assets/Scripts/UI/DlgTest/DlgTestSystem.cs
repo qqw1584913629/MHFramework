@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using MH;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class DlgTestSystem : BasePanel
@@ -19,14 +20,15 @@ public class DlgTestSystem : BasePanel
 	{
 		base.ShowWindow(path);
 		self.AddUIScrollItems(ref ScrollItemServersMap, 30);
+		self.M_ServerLoopLoopScrollView.AddLoopScrollItemHandler(OnRefreshItemHandler);
 		self.M_ServerLoopLoopScrollView.InitLoopScroll(true, ScrollItemServersMap.Count);
-		self.M_ServerLoopLoopScrollView.SetRefreshHandler(OnRefreshItemHandler);
+
 	}
 
 	public void OnRefreshItemHandler(Transform transform1, int index, int moveState)
 	{
 		var scrollItemTest = ScrollItemServersMap[index].BindTrans(transform1);
-		scrollItemTest.M_TestTextMeshProUGUI.SetText(index.ToString());
+		scrollItemTest.SetInfo(index);
 	}
 	public override void HideWindow()
 	{

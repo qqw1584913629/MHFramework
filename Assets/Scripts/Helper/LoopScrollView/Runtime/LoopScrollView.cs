@@ -127,7 +127,6 @@ namespace ET.Client
             }
 
             ReGenerateItems();
-
             layoutGroup.enabled = false;
         }
 
@@ -171,7 +170,7 @@ namespace ET.Client
             ReGenerateItems();
         }
 
-        public void SetRefreshHandler(Action<Transform, int, int> OnLoopRefershHandler)
+        public void AddLoopScrollItemHandler(Action<Transform, int, int> OnLoopRefershHandler)
         {
             this.OnLoopRefershHandler = OnLoopRefershHandler;
         }

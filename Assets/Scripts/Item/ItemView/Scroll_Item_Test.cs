@@ -7,6 +7,7 @@ namespace MH
 	{
 		public Scroll_Item_Test BindTrans(Transform trans)
 		{
+			DestroyWidget();
 			this.uiTransform = trans;
 			return this;
 		}
