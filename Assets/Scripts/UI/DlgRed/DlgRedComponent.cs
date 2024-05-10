@@ -156,6 +156,40 @@ using UnityEngine.UI;
      		}
      	}
 
+		public UnityEngine.UI.Button M_Child3Button
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_Child3Button == null )
+     			{
+		    		this.m_M_Child3Button = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Center/M_Child3");
+     			}
+     			return this.m_M_Child3Button;
+     		}
+     	}
+
+		public UnityEngine.UI.Image M_Child3Image
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_Child3Image == null )
+     			{
+		    		this.m_M_Child3Image = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center/M_Child3");
+     			}
+     			return this.m_M_Child3Image;
+     		}
+     	}
+
 		public UnityEngine.UI.Button M_AddChild1Button
      	{
      		get
@@ -187,40 +221,6 @@ using UnityEngine.UI;
 		    		this.m_M_AddChild1Image = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center (1)/M_AddChild1");
      			}
      			return this.m_M_AddChild1Image;
-     		}
-     	}
-
-		public UnityEngine.UI.Button M_AddChild2Button
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Debug.LogError("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_M_AddChild2Button == null )
-     			{
-		    		this.m_M_AddChild2Button = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Center (1)/M_AddChild2");
-     			}
-     			return this.m_M_AddChild2Button;
-     		}
-     	}
-
-		public UnityEngine.UI.Image M_AddChild2Image
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Debug.LogError("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_M_AddChild2Image == null )
-     			{
-		    		this.m_M_AddChild2Image = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center (1)/M_AddChild2");
-     			}
-     			return this.m_M_AddChild2Image;
      		}
      	}
 
@@ -258,7 +258,7 @@ using UnityEngine.UI;
      		}
      	}
 
-		public UnityEngine.UI.Button M_SubChild2Button
+		public UnityEngine.UI.Button M_AddChild3Button
      	{
      		get
      		{
@@ -267,15 +267,15 @@ using UnityEngine.UI;
      				Debug.LogError("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_M_SubChild2Button == null )
+     			if( this.m_M_AddChild3Button == null )
      			{
-		    		this.m_M_SubChild2Button = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Center (1)/M_SubChild2");
+		    		this.m_M_AddChild3Button = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Center (1)/M_AddChild3");
      			}
-     			return this.m_M_SubChild2Button;
+     			return this.m_M_AddChild3Button;
      		}
      	}
 
-		public UnityEngine.UI.Image M_SubChild2Image
+		public UnityEngine.UI.Image M_AddChild3Image
      	{
      		get
      		{
@@ -284,11 +284,45 @@ using UnityEngine.UI;
      				Debug.LogError("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_M_SubChild2Image == null )
+     			if( this.m_M_AddChild3Image == null )
      			{
-		    		this.m_M_SubChild2Image = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center (1)/M_SubChild2");
+		    		this.m_M_AddChild3Image = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center (1)/M_AddChild3");
      			}
-     			return this.m_M_SubChild2Image;
+     			return this.m_M_AddChild3Image;
+     		}
+     	}
+
+		public UnityEngine.UI.Button M_SubChild3Button
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_SubChild3Button == null )
+     			{
+		    		this.m_M_SubChild3Button = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Center (1)/M_SubChild3");
+     			}
+     			return this.m_M_SubChild3Button;
+     		}
+     	}
+
+		public UnityEngine.UI.Image M_SubChild3Image
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_SubChild3Image == null )
+     			{
+		    		this.m_M_SubChild3Image = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center (1)/M_SubChild3");
+     			}
+     			return this.m_M_SubChild3Image;
      		}
      	}
 
@@ -303,14 +337,16 @@ using UnityEngine.UI;
 			this.m_M_Child1Image = null;
 			this.m_M_Child2Button = null;
 			this.m_M_Child2Image = null;
+			this.m_M_Child3Button = null;
+			this.m_M_Child3Image = null;
 			this.m_M_AddChild1Button = null;
 			this.m_M_AddChild1Image = null;
-			this.m_M_AddChild2Button = null;
-			this.m_M_AddChild2Image = null;
 			this.m_M_SubChild1Button = null;
 			this.m_M_SubChild1Image = null;
-			this.m_M_SubChild2Button = null;
-			this.m_M_SubChild2Image = null;
+			this.m_M_AddChild3Button = null;
+			this.m_M_AddChild3Image = null;
+			this.m_M_SubChild3Button = null;
+			this.m_M_SubChild3Image = null;
 			this.uiTransform = null;
 		}
 
@@ -323,13 +359,15 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_M_Child1Image = null;
 		private UnityEngine.UI.Button m_M_Child2Button = null;
 		private UnityEngine.UI.Image m_M_Child2Image = null;
+		private UnityEngine.UI.Button m_M_Child3Button = null;
+		private UnityEngine.UI.Image m_M_Child3Image = null;
 		private UnityEngine.UI.Button m_M_AddChild1Button = null;
 		private UnityEngine.UI.Image m_M_AddChild1Image = null;
-		private UnityEngine.UI.Button m_M_AddChild2Button = null;
-		private UnityEngine.UI.Image m_M_AddChild2Image = null;
 		private UnityEngine.UI.Button m_M_SubChild1Button = null;
 		private UnityEngine.UI.Image m_M_SubChild1Image = null;
-		private UnityEngine.UI.Button m_M_SubChild2Button = null;
-		private UnityEngine.UI.Image m_M_SubChild2Image = null;
+		private UnityEngine.UI.Button m_M_AddChild3Button = null;
+		private UnityEngine.UI.Image m_M_AddChild3Image = null;
+		private UnityEngine.UI.Button m_M_SubChild3Button = null;
+		private UnityEngine.UI.Image m_M_SubChild3Image = null;
 		public Transform uiTransform = null;
 	}

@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 7793340612779790206}
   - component: {fileID: 2336647394482084205}
   m_Layer: 5
-  m_Name: Dot
+  m_Name: RedDot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
