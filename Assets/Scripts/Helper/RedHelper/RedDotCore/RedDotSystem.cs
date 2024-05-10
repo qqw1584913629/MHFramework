@@ -5,27 +5,9 @@ using UnityEngine;
 namespace RedDotTutorial_1
 {
     /// <summary>
-    /// 红点路径定义
-    /// </summary>
-    public static class E_RedDotDefine
-    {
-        /// <summary>
-        /// 红点树的根节点
-        /// </summary>
-        public const string rdRoot = "Root";
-
-
-        // ---------- 业务红点 ----------
-
-        public const string Test = "Root/Test";
-        public const string Child1 = "Root/Test/Child1";
-        public const string Child2 = "Root/Test/Child2";
-    }
-
-    /// <summary>
     /// 红点系统
     /// </summary>
-    public class RedDotSystem
+    public partial class RedDotSystem
     {
         public RedDotSystem()
         {
@@ -43,19 +25,6 @@ namespace RedDotTutorial_1
         /// 红点树的的 Root节点
         /// </summary>
         private RedDotNode mRootNode;
-
-        /// <summary>
-        /// 红点路径的表（每次 E_RedDotDefine 添加完后此处也必须添加）
-        /// </summary>
-        private static List<string> lstRedDotTreeList = new List<string>
-        {
-            E_RedDotDefine.rdRoot,
-
-            E_RedDotDefine.Test,
-            E_RedDotDefine.Child1,
-            E_RedDotDefine.Child2,
-        };
-
 
         #region 内部接口
 

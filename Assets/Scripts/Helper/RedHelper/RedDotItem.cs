@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.IO;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,5 +44,10 @@ namespace RedDotTutorial_1
             m_DotObj = null;
             m_DotCountText = null;
         }
+        
+        [Header("Editor生成红点路径相关")]
+        public bool isRoot;
+        [Tooltip("选择父节点")]
+        public RedDotType parent = RedDotType.None;
     }
 }
