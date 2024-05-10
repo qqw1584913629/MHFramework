@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
-	public  class DlgTestComponent : MonoBehaviour
+	public  class DlgTestComponent : MonoBehaviour, IUILogic
 	{
 		public UnityEngine.RectTransform MG_MaskRectTransform
      	{
@@ -88,6 +88,57 @@ using UnityEngine.UI;
      		}
      	}
 
+		public UnityEngine.UI.Button M_LoginButtonButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_LoginButtonButton == null )
+     			{
+		    		this.m_M_LoginButtonButton = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"M_LoginButton");
+     			}
+     			return this.m_M_LoginButtonButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image M_LoginButtonImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_LoginButtonImage == null )
+     			{
+		    		this.m_M_LoginButtonImage = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"M_LoginButton");
+     			}
+     			return this.m_M_LoginButtonImage;
+     		}
+     	}
+
+		public ET.Client.LoopScrollView M_ServerLoopLoopScrollView
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_ServerLoopLoopScrollView == null )
+     			{
+		    		this.m_M_ServerLoopLoopScrollView = MUIHelepr.FindDeepChild<ET.Client.LoopScrollView>(this.uiTransform.gameObject,"M_ServerLoop");
+     			}
+     			return this.m_M_ServerLoopLoopScrollView;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_MG_MaskRectTransform = null;
@@ -95,6 +146,9 @@ using UnityEngine.UI;
 			this.m_M_AccountImage = null;
 			this.m_M_PasswordInputField = null;
 			this.m_M_PasswordImage = null;
+			this.m_M_LoginButtonButton = null;
+			this.m_M_LoginButtonImage = null;
+			this.m_M_ServerLoopLoopScrollView = null;
 			this.uiTransform = null;
 		}
 
@@ -103,5 +157,8 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_M_AccountImage = null;
 		private UnityEngine.UI.InputField m_M_PasswordInputField = null;
 		private UnityEngine.UI.Image m_M_PasswordImage = null;
+		private UnityEngine.UI.Button m_M_LoginButtonButton = null;
+		private UnityEngine.UI.Image m_M_LoginButtonImage = null;
+		private ET.Client.LoopScrollView m_M_ServerLoopLoopScrollView = null;
 		public Transform uiTransform = null;
 	}

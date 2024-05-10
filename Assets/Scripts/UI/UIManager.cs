@@ -284,3 +284,41 @@ public class UIManager
        transform.localScale = Vector3.one;
    }
 }
+public static class MHUIModelViewHelper
+{
+    public static void AddUIScrollItems<K,T>(this K self, ref Dictionary<int, T> dictionary, int count) where K : IUILogic  
+        where T : IUIScrollItem
+    {
+        if (dictionary == null)
+        {
+            dictionary = new Dictionary<int, T>();
+        }
+            
+        if (count <= 0)
+        {
+            return;
+        }
+            
+        // foreach (var item in dictionary)
+        // {
+        //     item.Value.Dispose();
+        // }
+        dictionary.Clear();
+        for (int i = 0; i <= count; i++)
+        {
+            Type type = typeof (T);
+            IUIScrollItem component = Activator.CreateInstance(type) as IUIScrollItem;
+            T itemServer = (T)component;
+            dictionary.Add(i , itemServer);
+        }
+    }
+}
+
+public interface IUILogic
+{
+    
+}
+
+public interface IUIScrollItem
+{
+}

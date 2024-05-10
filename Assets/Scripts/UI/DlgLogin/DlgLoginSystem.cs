@@ -14,12 +14,20 @@ public class DlgLoginSystem : BasePanel
 	private void Start()
 	{
 		self.M_LoginButtonButton.AddListener(OnLoginButtonClickHandler);
+		self.M_LoginButton2Button.AddListener(OnLoginButton2ClickHandler);
 		self.M_CloseButton.AddListener(() =>
 		{
 			UIManager.Instance.CloseWindow(WindowID.WindowID_Login);
 		});
 	}
-
+	private void OnLoginButton2ClickHandler()
+	{
+		var account = self.M_AccountTMP_InputField.text;
+		var password = self.M_PasswordTMP_InputField.text;
+		Debug.LogWarning($"account=>{account},password=>{password}");
+		UIManager.Instance.ShowWindow(WindowID.WindowID_Test);
+		UIManager.Instance.CloseWindow(WindowID.WindowID_Login);
+	}
 	private void OnLoginButtonClickHandler()
 	{
 		var account = self.M_AccountTMP_InputField.text;

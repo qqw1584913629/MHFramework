@@ -156,6 +156,40 @@ using UnityEngine.UI;
      		}
      	}
 
+		public UnityEngine.UI.Button M_LoginButton2Button
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_LoginButton2Button == null )
+     			{
+		    		this.m_M_LoginButton2Button = MUIHelepr.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Center/M_LoginButton2");
+     			}
+     			return this.m_M_LoginButton2Button;
+     		}
+     	}
+
+		public UnityEngine.UI.Image M_LoginButton2Image
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Debug.LogError("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_M_LoginButton2Image == null )
+     			{
+		    		this.m_M_LoginButton2Image = MUIHelepr.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center/M_LoginButton2");
+     			}
+     			return this.m_M_LoginButton2Image;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_MG_MaskRectTransform = null;
@@ -167,6 +201,8 @@ using UnityEngine.UI;
 			this.m_M_PasswordImage = null;
 			this.m_M_LoginButtonButton = null;
 			this.m_M_LoginButtonImage = null;
+			this.m_M_LoginButton2Button = null;
+			this.m_M_LoginButton2Image = null;
 			this.uiTransform = null;
 		}
 
@@ -179,5 +215,7 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_M_PasswordImage = null;
 		private UnityEngine.UI.Button m_M_LoginButtonButton = null;
 		private UnityEngine.UI.Image m_M_LoginButtonImage = null;
+		private UnityEngine.UI.Button m_M_LoginButton2Button = null;
+		private UnityEngine.UI.Image m_M_LoginButton2Image = null;
 		public Transform uiTransform = null;
 	}
