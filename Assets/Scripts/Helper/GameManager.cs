@@ -26,7 +26,6 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.ShowWindow(WindowID.WindowID_BackGround);
         //加载配置表json
         await ConfigsManager.Init();
-        return;
     }
     private async UniTask InitializeYooAsset()
     {
@@ -169,10 +168,6 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     private void CreatePlayerData()
     {
-
-#if UNITY_EDITOR
-       // PlayerPrefs.DeleteAll();
-#endif
         Type type = typeof(ModelID);
         FieldInfo[] fields = type.GetFields(BindingFlags.Public | 
                                             BindingFlags.Static | 

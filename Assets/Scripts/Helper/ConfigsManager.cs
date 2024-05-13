@@ -20,9 +20,10 @@ using UnityEngine;
 public static class ConfigsManager
 {
     public static Tables tables;
-    public async static UniTask Init()
+    public static async UniTask Init()
     {
         tables = new cfg.Tables(Loader);
+        await UniTask.CompletedTask;
     }
     private static JSONNode Loader(string fileName)
     {
