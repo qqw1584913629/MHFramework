@@ -85,7 +85,7 @@ public static class ResourceHelper
     /// </summary>
     /// <param name="fileName"></param>
     /// <returns></returns>
-    public static async UniTask<string> LoadRawFileASync(string fileName)
+    public static async UniTask<string> LoadRawFileAsync(string fileName)
     {
         var rawFileText = YooAssets.LoadRawFileAsync(fileName);
         await rawFileText.ToUniTask();

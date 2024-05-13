@@ -53,6 +53,7 @@ public class UIFindHelper
         FindAllWidgets(gameObject.transform, "");
         SpawnCodeForDlgSystem(gameObject);
         SpawnCodeForDlgComponent(gameObject);
+        SpawnCodeForDlgEventHandle(gameObject);
 
         AssetDatabase.Refresh();
     }
@@ -169,34 +170,16 @@ public class UIFindHelper
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.AppendLine().AppendLine("using UnityEngine;");
         strBuilder.AppendLine("using UnityEngine.UI;");
-        strBuilder.AppendFormat("public class {0} : BasePanel\r\n", strDlgSystem)
-            .AppendLine("{");
-        strBuilder.AppendLine($"\tprivate {strDlgName}Component self;");
-        strBuilder.AppendLine($"\tprivate void Awake()");
-        strBuilder.AppendLine("\t{");
-        strBuilder.AppendLine($"\t\tif (gameObject.GetComponent<{strDlgName}Component>() == null)");
-        strBuilder.AppendLine($"\t\t\tself = gameObject.AddComponent<{strDlgName}Component>();");
-        strBuilder.AppendLine($"\t\tself.uiTransform = transform;");
-        strBuilder.AppendLine($"\t\twindowType = UIWindowType.Normal;");
-        strBuilder.AppendLine("\t}");
-        strBuilder.AppendLine($"\tprivate void Start()");
-        strBuilder.AppendLine("\t{\n\t\t");
-        
-        strBuilder.AppendLine("\t}");
-        strBuilder.AppendLine($"\tpublic override void ShowWindow(string path)");
-        strBuilder.AppendLine("\t{");
-        strBuilder.AppendLine($"\t\tbase.ShowWindow(path);");
-
-        strBuilder.AppendLine("\t}");
-        strBuilder.AppendLine($"\tpublic override void HideWindow()");
-        strBuilder.AppendLine("\t{");
-        strBuilder.AppendLine($"\t\tbase.HideWindow();");
-
-        strBuilder.AppendLine("\t}");
-        strBuilder.AppendLine($"\tpublic override void CloseWindow()");
-        strBuilder.AppendLine("\t{");
-        strBuilder.AppendLine($"\t\tbase.CloseWindow();");
-
+        strBuilder.AppendLine("namespace MH");
+        strBuilder.AppendLine("{");
+        strBuilder.AppendFormat("\tpublic static class {0} \r\n", strDlgSystem)
+            .AppendLine("\t{");
+        strBuilder.AppendLine($"\t\tpublic static void RegisterUIEvent(this {strDlgName}Component self)");
+        strBuilder.AppendLine("\t\t{\n\t\t");
+        strBuilder.AppendLine("\t\t}");
+        strBuilder.AppendLine($"\t\tpublic static void ShowWindow(this {strDlgName}Component self, object context = null)");
+        strBuilder.AppendLine("\t\t{\n\t\t");
+        strBuilder.AppendLine("\t\t}");
         strBuilder.AppendLine("\t}");
         strBuilder.AppendLine("}");
         
@@ -205,6 +188,74 @@ public class UIFindHelper
         sw.Close();
 
 
+    }
+
+    static void SpawnCodeForDlgEventHandle(GameObject gameObject)
+    {
+        string strDlgName = gameObject.name;
+        string strFilePath = Application.dataPath + "/Scripts/UI/" + strDlgName + "/Event";
+        if ( !System.IO.Directory.Exists(strFilePath) )
+            System.IO.Directory.CreateDirectory(strFilePath);
+	    strFilePath = Application.dataPath + "/Scripts/UI/" + strDlgName + "/Event/" + strDlgName + "EventHandler.cs";
+        if(System.IO.File.Exists(strFilePath))
+        {
+	        Debug.LogError("已存在 " + strDlgName + ".cs,将不会再次生成。");
+            return;
+        }
+
+        StreamWriter sw = new StreamWriter(strFilePath, false, Encoding.UTF8);
+        StringBuilder strBuilder = new StringBuilder();
+        
+
+        strBuilder.AppendLine("using System;");
+        strBuilder.AppendLine("namespace MH");
+        strBuilder.AppendLine("{");
+        strBuilder.AppendFormat("\t[AUIEvent(WindowID.WindowID_{0})]\n",strDlgName.Substring(3));
+        strBuilder.AppendFormat("\tpublic  class {0}EventHandler : IAUIEventHandler", strDlgName);
+          strBuilder.AppendLine("\t{");
+          
+          
+          strBuilder.AppendLine("\t\tpublic void OnInitWindowCoreData(BasePanel basePanel)")
+	          .AppendLine("\t\t{");
+
+          strBuilder.AppendLine("\t\t\tbasePanel.windowType = UIWindowType.Normal;");
+          strBuilder.AppendLine($"\t\t\tbasePanel.uiLogic = Activator.CreateInstance(typeof({strDlgName}Component)) as {strDlgName}Component;");
+          strBuilder.AppendLine($"\t\t\tif (basePanel.uiLogic is {strDlgName}Component basePanelUILogic) basePanelUILogic.uiTransform = basePanel.obj.transform;");
+          
+          strBuilder.AppendLine("\t\t}")
+	          .AppendLine();
+          
+          strBuilder.AppendLine("\t\tpublic void OnRegisterUIEvent(BasePanel basePanel)")
+            		.AppendLine("\t\t{");
+          strBuilder.AppendLine($"\t\t\tif (basePanel.uiLogic is {strDlgName}Component basePanelUILogic) basePanelUILogic.RegisterUIEvent();");
+          
+          strBuilder.AppendLine("\t\t}")
+            .AppendLine();
+          
+          strBuilder.AppendLine("\t\tpublic void OnShowWindow(BasePanel basePanel, object contextData = null)")
+	          .AppendLine("\t\t{");
+          strBuilder.AppendLine($"\t\t\tif (basePanel.uiLogic is {strDlgName}Component basePanelUILogic) basePanelUILogic.ShowWindow(contextData);");
+          strBuilder.AppendLine("\t\t}")
+	          .AppendLine();
+          
+          
+          strBuilder.AppendLine("\t\tpublic void OnHideWindow(BasePanel basePanel)")
+	          .AppendLine("\t\t{");
+          strBuilder.AppendLine("\t\t}")
+	          .AppendLine();
+
+            
+          strBuilder.AppendLine("\t\tpublic void BeforeUnload(BasePanel basePanel)")
+	          .AppendLine("\t\t{");
+          
+          strBuilder.AppendLine("\t\t}")
+	          .AppendLine();
+        strBuilder.AppendLine("\t}");
+        strBuilder.AppendLine("}");
+
+        sw.Write(strBuilder);
+        sw.Flush();
+        sw.Close();
     }
     static void SpawnCodeForDlgComponent(GameObject gameObject)
     {
@@ -226,7 +277,9 @@ public class UIFindHelper
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.AppendLine().AppendLine("using UnityEngine;");
         strBuilder.AppendLine("using UnityEngine.UI;");
-        strBuilder.AppendFormat("\tpublic  class {0} : MonoBehaviour\r\n", strDlgComponentName)
+        strBuilder.AppendLine("namespace MH");
+        strBuilder.AppendLine("{");
+        strBuilder.AppendFormat("\tpublic class {0} : BasePanel, IUILogic\r\n", strDlgComponentName)
             .AppendLine("\t{");
      
         CreateWidgetBindCode(ref strBuilder, gameObject.transform);
@@ -236,6 +289,7 @@ public class UIFindHelper
         CreateDeclareCode(ref strBuilder);
         strBuilder.AppendFormat("\t\tpublic Transform uiTransform = null;\r\n");
         strBuilder.AppendLine("\t}");
+        strBuilder.AppendLine("}");
         
         sw.Write(strBuilder);
         sw.Flush();

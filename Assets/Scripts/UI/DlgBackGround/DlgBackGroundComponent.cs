@@ -1,7 +1,9 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
-	public  class DlgBackGroundComponent : MonoBehaviour
+namespace MH
+{
+	public class DlgBackGroundComponent : BasePanel, IUILogic
 	{
 		public UnityEngine.RectTransform MG_MaskRectTransform
      	{
@@ -67,3 +69,4 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_MLoginImage = null;
 		public Transform uiTransform = null;
 	}
+}

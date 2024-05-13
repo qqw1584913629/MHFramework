@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using Cysharp.Threading.Tasks;
 using Luban;
 using SimpleJSON;
 
@@ -16,20 +14,14 @@ namespace cfg
 {
 public partial class Tables
 {
-    public item.TbItem TbItem {get; private set; }
+    public item.TbItem TbItem {get; }
 
-    private Tables()
+    public Tables(System.Func<string, JSONNode> loader)
     {
+        TbItem = new item.TbItem(loader("item_tbitem"));
+        ResolveRef();
     }
-
-    public static async UniTask<Tables> CreateAsync(Func<string, UniTask<JSONNode>> loader)
-    {
-        Tables tables = new Tables();
-        tables.TbItem = new item.TbItem(await loader("item_tbitem"));            
-        tables.ResolveRef();
-        return tables;
-    }
-
+    
     private void ResolveRef()
     {
         TbItem.ResolveRef(this);

@@ -1,8 +1,12 @@
 ﻿
+using System.Collections.Generic;
+using MH;
 using UnityEngine;
 using UnityEngine.UI;
-	public  class DlgTestComponent : MonoBehaviour, IUILogic
+	public  class DlgTestComponent : BasePanel, IUILogic
 	{
+		public Dictionary<int, Scroll_Item_Test> ScrollItemServersMap;
+
 		public UnityEngine.RectTransform MG_MaskRectTransform
      	{
      		get

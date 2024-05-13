@@ -22,11 +22,11 @@ public static class ConfigsManager
     public static Tables tables;
     public async static UniTask Init()
     {
-        tables = await cfg.Tables.CreateAsync(Loader);
+        tables = new cfg.Tables(Loader);
     }
-    private static async UniTask<JSONNode> Loader(string fileName)
+    private static JSONNode Loader(string fileName)
     {
-        var content = await ResourceHelper.LoadRawFileASync(fileName);
+        var content = ResourceHelper.LoadRawFileSync(fileName);
         return JSON.Parse(content);
     }
 }

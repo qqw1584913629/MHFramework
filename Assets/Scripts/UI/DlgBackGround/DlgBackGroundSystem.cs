@@ -1,34 +1,21 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
-public class DlgBackGroundSystem : BasePanel
+namespace MH
 {
-	private DlgBackGroundComponent self;
-	private void Awake()
+	public static class DlgBackGroundSystem 
 	{
-		if (gameObject.GetComponent<DlgBackGroundComponent>() == null)
-			self = gameObject.AddComponent<DlgBackGroundComponent>();
-		self.uiTransform = transform;
-		windowType = UIWindowType.Fixed;
-	}
-	private void Start()
-	{
-		self.MLoginButton.AddListener(() =>
+		public static void RegisterUIEvent(this DlgBackGroundComponent self)
 		{
-			UIManager.Instance.ShowWindow(WindowID.WindowID_Login);
-			UIManager.Instance.CloseWindow(WindowID.WindowID_BackGround);
-		});
-	}
-	public override void ShowWindow(string path)
-	{
-		base.ShowWindow(path);
-	}
-	public override void HideWindow()
-	{
-		base.HideWindow();
-	}
-	public override void CloseWindow()
-	{
-		base.CloseWindow();
+			self.MLoginButton.AddListener(() =>
+			{
+				UIManager.Instance.ShowWindow(WindowID.WindowID_Login);
+				UIManager.Instance.HideWindow(WindowID.WindowID_BackGround);
+			});
+		}
+		public static void ShowWindow(this DlgBackGroundComponent self, object context = null)
+		{
+			Debug.LogWarning("DlgBackGround Show");
+		}
 	}
 }

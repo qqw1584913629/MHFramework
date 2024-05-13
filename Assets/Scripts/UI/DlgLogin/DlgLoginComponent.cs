@@ -1,7 +1,9 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
-	public  class DlgLoginComponent : MonoBehaviour
+namespace MH
+{
+	public class DlgLoginComponent : BasePanel, IUILogic
 	{
 		public UnityEngine.RectTransform MG_MaskRectTransform
      	{
@@ -219,3 +221,4 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_M_LoginButton2Image = null;
 		public Transform uiTransform = null;
 	}
+}

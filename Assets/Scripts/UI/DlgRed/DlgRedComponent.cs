@@ -1,7 +1,9 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
-	public  class DlgRedComponent : MonoBehaviour
+namespace MH
+{
+	public class DlgRedComponent : BasePanel, IUILogic
 	{
 		public UnityEngine.RectTransform MG_MaskRectTransform
      	{
@@ -371,3 +373,4 @@ using UnityEngine.UI;
 		private UnityEngine.UI.Image m_M_SubChild3Image = null;
 		public Transform uiTransform = null;
 	}
+}

@@ -46,7 +46,7 @@ public class UIEditorController
         }
         int windowIdEndIndex   = GetWindowIdEndIndex(originWindowIdContent);
         originWindowIdContent  = originWindowIdContent.Insert(windowIdEndIndex, 
-            "\tpublic const string WindowID_"+strDlgName.Substring(3) + $" = \"Assets/Bundles/UI/{strDlgName}.prefab\";\n");
+            "\tWindowID_"+strDlgName.Substring(3) + ",\r\n");
         File.WriteAllText(strFilePath, originWindowIdContent);
         
         Debug.Log($"生成WindowID：{strDlgName}完毕");

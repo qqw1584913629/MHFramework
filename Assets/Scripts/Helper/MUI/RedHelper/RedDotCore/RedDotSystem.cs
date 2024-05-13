@@ -75,7 +75,7 @@ namespace RedDotTutorial_1
 
         public void AddRedDotNodeView(string strNode, GameObject obj)
         {
-            var redDotItem = obj.GetComponentInChildren<RedDotItem>();
+            var redDotItem = obj.GetComponentInChildren<RedDotItem>(true);
             if(!redDotItem)return;
             SetRedDotNodeCallBack(strNode, node =>
             {
