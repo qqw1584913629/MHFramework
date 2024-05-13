@@ -193,7 +193,7 @@ public static class MUIHelepr
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(()=>
             {
-                AudioManager.Instance.PlaySoundEffect(ClipID.ClipID_ButtonClickClip);
+                AudioManager.Instance.PlaySoundEffect(ClipID.ButtonClickClip);
             });
             button.onClick.AddListener(clickEventHandler);
         }

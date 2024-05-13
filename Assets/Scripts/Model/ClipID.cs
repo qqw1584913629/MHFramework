@@ -1,4 +1,4 @@
-public class ClipID
+public enum ClipID
 {
-	public const string ClipID_ButtonClickClip = "ButtonClickClip";
+	ButtonClickClip,
 }

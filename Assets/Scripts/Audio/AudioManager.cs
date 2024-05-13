@@ -30,9 +30,9 @@ public class AudioManager : Singleton<AudioManager>
     }
 
     // 播放音效
-    public void PlaySoundEffect(string clipName)
+    public void PlaySoundEffect(ClipID id)
     {
-        var clip = ResourceHelper.LoadGameObjectSync<AudioClip>(clipName);
+        var clip = ResourceHelper.LoadGameObjectSync<AudioClip>(id.ToString());
         if (clip)
             soundEffectSource.PlayOneShot(clip);
     }

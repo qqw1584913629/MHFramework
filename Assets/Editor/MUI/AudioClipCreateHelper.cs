@@ -76,11 +76,10 @@ namespace SetAssetBundleTag
             var strs = tmpUnityPath.Split("/");
             strABName = strs[strs.Length-1];
             string tmp1 = strABName.Split(".")[0];//去掉后缀 .prefab  .wav  .unity
-            string tmp2 = strABName.Split(".")[1];
-            WriteAudiosCode(tmp1, tmp2);
+            WriteAudiosCode(tmp1);
         }
 
-        public static void WriteAudiosCode(string name, string type)
+        public static void WriteAudiosCode(string name)
         {
             string strDlgName = name;
             string strFilePath = Application.dataPath + "/Scripts/Model/ClipID.cs" ;
@@ -97,7 +96,7 @@ namespace SetAssetBundleTag
             }
             int windowIdEndIndex   = GetAudioEndIndex(originWindowIdContent);
             originWindowIdContent  = originWindowIdContent.Insert(windowIdEndIndex, 
-                "\tpublic const string ClipID_"+strDlgName + $" = \"Assets/Bundles/MP3/{strDlgName}.{type}\";\n");
+                $"\t{strDlgName},\r\n");
             File.WriteAllText(strFilePath, originWindowIdContent);
         
             Debug.Log($"生成ClipID：{strDlgName}完毕");
