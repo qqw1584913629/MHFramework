@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class  GoPManager
@@ -118,6 +119,15 @@ public class  GoPManager
             if(spawnedObjects.TryGetValue(prefab,out List<GameObject> spawnObjects))
                 foreach (GameObject obj in spawnObjects)
                     Recycle(prefab, obj);
+        }
+    }
+    public void Recycle(string prefabName, GameObject gameObject)
+    {
+        if(prefabName != null)
+        {
+            var prefab = spawnedObjects.Keys.FirstOrDefault(s => s.name.Equals(prefabName));
+            if(spawnedObjects.TryGetValue(prefab,out List<GameObject> spawnObjects))
+                Recycle(prefab, gameObject);
         }
     }
     public void RecycleAll()
