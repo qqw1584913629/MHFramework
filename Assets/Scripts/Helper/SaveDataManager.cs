@@ -12,10 +12,11 @@ public static class SaveDataManager
         PlayerPrefs.Save();
         Debug.Log(json);
     }
-    public static string LoadDataByPlayerPrefs(string key)
+    public static T LoadDataByPlayerPrefs<T>()
     {
-        var json = PlayerPrefs.GetString(key, null);
-        return json;
+        var json = PlayerPrefs.GetString(typeof(T).FullName, null);
+        var fromJson = JsonUtility.FromJson<T>(json);
+        return fromJson;
     }
 }
 
@@ -23,7 +24,7 @@ public static class CreatePlayerGameDataHandler<T> where T: new()
 {
     public static T Create()
     {
-        var data = JsonUtility.FromJson<T>(SaveDataManager.LoadDataByPlayerPrefs(typeof(T).Name));
+        var data = SaveDataManager.LoadDataByPlayerPrefs<T>();
         if (data == null)
         {
             T newData = new T();
