@@ -215,7 +215,7 @@ public static class MHUIModelViewHelper
         //     item.Value.Dispose();
         // }
         dictionary.Clear();
-        for (int i = 0; i <= count; i++)
+        for (int i = 0; i < count; i++)
         {
             Type type = typeof (T);
             IUIScrollItem component = Activator.CreateInstance(type) as IUIScrollItem;
